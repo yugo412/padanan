@@ -57,7 +57,7 @@
                 </h1>
             </div><!--//branding-->
             <div class="tagline">
-                <p>@lang('Cari :count padanan kata asing dalam bahasa Indonesia', ['count' => $wordCount])</p>
+                <p>{{ $title }}</p>
             </div><!--//tagline-->
 
             <div class="main-search-box pt-3 pb-4 d-inline-block">

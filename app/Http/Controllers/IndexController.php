@@ -18,11 +18,10 @@ class IndexController extends Controller
         $categories = Category::orderBy('name')
             ->get();
 
-        $wordCount = Word::count();
-
         $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
         $wordCount = $number->format(Word::count());
 
-        return \view('index.index', compact('categories', 'wordCount'));
+        return \view('index.index', compact('categories', 'wordCount'))
+            ->with('title', __('Cari :count padanan kata asing dalam bahasa Indonesia', ['count' => $wordCount]));
     }
 }
