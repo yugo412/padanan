@@ -81,7 +81,7 @@
             </div><!--//intro-->
             <div id="cards-wrapper" class="cards-wrapper row">
                 @foreach ($categories as $category)
-                <div class="item item-orange col-lg-4 col-6">
+                <div class="item item-orange col-lg-4 col-md-6 col-12">
                   <div class="item-inner">
                     <div class="icon-holder">
                       <i class="icon icon_document"></i>
