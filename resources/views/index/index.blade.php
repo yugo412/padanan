@@ -66,23 +66,6 @@
                     <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
                 </form>
             </div>
-
-{{--            <div class="social-container">--}}
-{{--                <!-- Replace with your Github Button -->--}}
-{{--                <div class="github-btn mb-2">--}}
-{{--                    <a class="github-button" href="https://github.com/xriley/PrettyDocs-Theme" data-size="large" aria-label="Star xriley/PrettyDocs-Theme on GitHub">Star</a>--}}
-{{--                    <a class="github-button" href="https://github.com/xriley" data-size="large" aria-label="Follow @xriley on GitHub">Follow @xriley</a>--}}
-{{--                </div>--}}
-{{--                <!-- Replace with your Twitter Button -->--}}
-{{--                <div class="twitter-tweet">--}}
-{{--                    <a href="https://twitter.com/share" class="twitter-share-button" data-text="PrettyDocs - A FREE #Bootstrap theme for project documentations #Responsive" data-via="3rdwave_themes">Tweet</a>--}}
-{{--                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>--}}
-{{--                </div><!--//tweet-->--}}
-{{--                <!-- Replace with your Facebook Button -->--}}
-{{--                <div class="fb-like" data-href="https://themes.3rdwavemedia.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>--}}
-{{--            </div><!--//social-container-->--}}
-
-
         </div><!--//container-->
     </header><!--//header-->
 
@@ -91,9 +74,10 @@
             <h2 class="title">@lang('Cari kata dalam berbagai kategori!')</h2>
             <div class="intro">
               <p>Mulai dengan mencari istilah asing maupun istilah dalam bahasa Indonesia. Kata yang sama bisa memiliki padanan yang berbeda untuk kategori yang berbeda.</p>
-                <div class="cta-container">
-{{--                    <a class="btn btn-primary btn-cta" href="{{ route('category.index') }}" target="_blank"><i class="fas fa-cloud-download-alt"></i>@lang('Lihat semua')</a>--}}
-                </div><!--//cta-container-->
+              <div class="cta-container">
+                <a class="btn btn-primary btn-cta" href="{{ route('about') }}"><i class="fa fa-question-circle-o fa-fw"></i> @lang('Tentang kami')</a>
+              </div>
+
             </div><!--//intro-->
             <div id="cards-wrapper" class="cards-wrapper row">
                 @each('index.category', $categories, 'category')

@@ -17,6 +17,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/tentang', 'AboutController')->name('about');
+
 Route::get('/cari', 'WordController@search')->name('word.search');
 Route::get('/tambah', 'WordController@create')->name('word.create');
 Route::post('/tambah', 'WordController@store');
