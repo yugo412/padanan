@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
 use App\Models\Like;
+use App\Models\Search;
 use App\Models\Word;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -38,6 +39,17 @@ class WordController extends Controller
             ->withCount('likes')
             ->paginate(25);
         $words->appends($request->all());
+
+        // TODO: move to event-listener
+        if (!empty($request->katakunci)) {
+            Search::create([
+                'user_id' => Auth::id(),
+                'query' => $request->katakunci,
+                'metadata' => [
+                    'results_count' => $words->total(),
+                ],
+            ]);
+        }
 
         return \view('word.search', compact('words'))
             ->with('title', $request->katakunci)
