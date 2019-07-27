@@ -26,10 +26,7 @@
               <h3>@lang('Deskripsi')</h3>
               <p>@lang('Tidak ada deskripsi untuk padanan kata ini.')</p>
 
-              <div class="actions">
-                <button class="btn btn-sm btn-outline-primary"><i class="icon icon_like"></i> 0</button>
-                <button class="btn btn-sm btn-outline-danger"><i class="icon icon_dislike"></i> 0</button>
-              </div>
+              <loveable link="{{ route('word.love', $word) }}" count="{{ $word->likes_count }}"></loveable>
             </div>
 
           </section><!--//doc-section-->

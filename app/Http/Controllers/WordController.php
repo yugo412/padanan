@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Word;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class WordController extends Controller
@@ -32,6 +35,7 @@ class WordController extends Controller
                     return $category->whereSlug($request->kategori);
                 });
             })
+            ->withCount('likes')
             ->paginate(25);
         $words->appends($request->all());
 
@@ -51,6 +55,7 @@ class WordController extends Controller
     {
         $words = Word::where('category_id', $category->id)
             ->orderBy('origin')
+            ->withCount('likes')
             ->paginate();
         $words->appends($request->all());
 
@@ -123,6 +128,8 @@ class WordController extends Controller
      */
     public function show(Category $category, Word $word): View
     {
+        $word->loadCount('likes');
+
         return \view('word.show', compact('category', 'word'))
             ->with('title', __(':origin - :Locale', [
                 'origin' => $word->origin,
@@ -167,5 +174,21 @@ class WordController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param Word $word
+     * @return JsonResponse
+     */
+    public function love(Word $word): JsonResponse
+    {
+        $word->likes()->save(new Like([
+            'user_id' => Auth::id(),
+            'metadata' => [],
+        ]));
+
+        $word->loadCount('likes');
+
+        return response()->json($word);
     }
 }
