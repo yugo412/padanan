@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "666c69ff818581a0f9de6167c8e03e40",
+    "content-hash": "943fa942bd38d0e9bc47b3bd7c46040e",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -3584,60 +3584,6 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
-        },
-        {
-            "name": "torann/laravel-repository",
-            "version": "0.5.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Torann/laravel-repository.git",
-                "reference": "d965b745b97d22eeea6f6274ec701c03c376549a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Torann/laravel-repository/zipball/d965b745b97d22eeea6f6274ec701c03c376549a",
-                "reference": "d965b745b97d22eeea6f6274ec701c03c376549a",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "~5.1",
-                "illuminate/support": "~5.1",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Torann\\LaravelRepository\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Daniel Stainback",
-                    "email": "torann@gmail.com"
-                }
-            ],
-            "description": "Base repository implementation for Laravel",
-            "keywords": [
-                "eloquent",
-                "laravel",
-                "repositories",
-                "repository",
-                "repository pattern"
-            ],
-            "time": "2018-12-17T16:40:48+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
