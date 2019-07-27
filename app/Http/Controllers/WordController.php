@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Word\StoredEvent;
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
 use App\Models\Like;
@@ -127,6 +128,8 @@ class WordController extends Controller
         ]);
 
         $word = Word::create($request->all());
+
+        event(new StoredEvent($word));
 
         return redirect()->route('word.create')
             ->with('success', true);
