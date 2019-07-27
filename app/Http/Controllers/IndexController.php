@@ -16,12 +16,13 @@ class IndexController extends Controller
     public function __invoke(Request $request): View
     {
         $categories = Category::orderBy('name')
+            ->withCount('words')
             ->get();
 
         $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
         $wordCount = $number->format(Word::count());
 
-        return \view('index.index', compact('categories', 'wordCount'))
+        return \view('index', compact('categories', 'wordCount', 'number'))
             ->with('title', __('Cari :count padanan kata asing dalam bahasa Indonesia', ['count' => $wordCount]));
     }
 }

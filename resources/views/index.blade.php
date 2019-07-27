@@ -80,7 +80,19 @@
 
             </div><!--//intro-->
             <div id="cards-wrapper" class="cards-wrapper row">
-                @each('index.category', $categories, 'category')
+                @foreach ($categories as $category)
+                <div class="item item-orange col-lg-4 col-6">
+                  <div class="item-inner">
+                    <div class="icon-holder">
+                      <i class="icon icon_document"></i>
+                    </div><!--//icon-holder-->
+                    <h3 class="title">{{ $category->name }}</h3>
+                    <p class="intro">@lang(':count kata', ['count' => $number->format($category->words_count)])</p>
+                    <p class="intro">{{ \Illuminate\Support\Str::substr($category->description, 0, 100) }}</p>
+                    <a class="link" href="{{ route('word.category', $category) }}"></a>
+                  </div>
+                </div>
+              @endforeach
             </div><!--//cards-->
 
         </div><!--//container-->
