@@ -20,6 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/cari', 'WordController@search')->name('word.search');
 Route::get('/tambah', 'WordController@create')->name('word.create');
 Route::post('/tambah', 'WordController@store');
-Route::get('/{category}', 'WordController@category')->name('word.category');
+Route::get('/kata', 'WordController@index')->name('word.index');
 
 Route::get('/kategori', 'CategoryController@index')->name('category.index');
+
+Route::get('/{category}', 'WordController@category')->name('word.category');
+Route::get('/{category}/{word}', 'WordController@show')->name('word.show');

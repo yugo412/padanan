@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="{{ $description ?? null }}">
+    <meta name="author" content="{{ config('app.name') }}">
 
     @stack('metadata')
 
@@ -55,11 +55,15 @@
             </ol>
             <div class="top-search-box">
                 <form class="form-inline search-form justify-content-center" action="{{ route('word.search') }}" method="get">
+                    @if (request('kategori'))
+                    <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+                    @endif
+
                     @if (!empty($category))
                       <input type="hidden" name="kategori" value="{{ $category->slug }}">
-                      <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari kata dalam bidang :category...', ['category' => $category->name])" name="katakunci" class="form-control search-input">
+                      <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari kata dalam bidang :category...', ['category' => $category->name])" name="katakunci" class="form-control search-input" autocomplete="off">
                     @else
-                      <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Kata dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input">
+                      <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Kata dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
                     @endif
 
                     <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>

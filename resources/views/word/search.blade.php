@@ -1,11 +1,20 @@
 @extends('layouts.app')
 
+@push('metadata')
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description }}">
+  <meta property="og:url" content="{{ \Illuminate\Support\Facades\Request::fullUrl() }}" />
+@endpush
+
 @section('content')
   <div class="container">
+    @if (request('katakunci'))
     <div id="doc-header" class="doc-header text-center">
       <h1 class="doc-title"><span aria-hidden="true" class="icon icon_search-2"></span> {{ request('katakunci') }}</h1>
       <div class="meta">@lang('ditemukan :count hasil pencarian untuk katakunci tersebut', ['count' => $words->total()])</div>
-    </div><!--//doc-header-->
+      <hr>
+    </div>
+    @endif
 
     <div id="showcase" class="doc-body row">
       <div class="doc-content col-md-9 col-12 order-1">

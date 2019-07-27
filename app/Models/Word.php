@@ -28,6 +28,14 @@ class Word extends Model
     ];
 
     /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * @param string $origin
      */
     public function setOriginAttribute(string $origin): void
@@ -41,6 +49,22 @@ class Word extends Model
     public function setLocaleAttribute(string $locale): void
     {
         $this->attributes['locale'] = strtolower($locale);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginAttribute(): string
+    {
+        return strtolower($this->attributes['origin']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocaleAttribute(): string
+    {
+        return strtolower($this->attributes['locale']);
     }
 
     /**

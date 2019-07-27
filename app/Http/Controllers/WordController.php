@@ -36,7 +36,10 @@ class WordController extends Controller
         $words->appends($request->all());
 
         return \view('word.search', compact('words'))
-            ->with('title', $request->katakunci);
+            ->with('title', $request->katakunci)
+            ->with('description', __('Pencarian untuk padanan kata ":origin"', [
+                'origin' => $request->katakunci,
+            ]));
     }
 
     /**
@@ -55,16 +58,31 @@ class WordController extends Controller
         $total = $number->format($words->total());
 
         return \view('word.category', compact('words', 'category', 'total'))
-            ->with('title', $category->name);
+            ->with('title', __('Padanan dalam bidang :category', ['category' => $category->name]))
+            ->with('description', $category->description);
     }
 
 
     /**
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+        $categories = Category::orderBy('name')
+            ->get();
 
+        $words = Word::orderBy('origin')
+            ->paginate();
+        $words->appends($request->all());
+
+        $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
+
+        return \view('word.index', compact('categories', 'words'))
+            ->with('title', __('Daftar lengkap padanan kata dalam berbagai bidang'))
+            ->with('description', __('Cari :count padanan kata asing dalam :count_category bidang dalam bahasa Indonesia', [
+                'count' => $number->format($words->total()),
+                'count_category' => $number->format($categories->count()),
+            ]));
     }
 
     /**
@@ -103,9 +121,18 @@ class WordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category, Word $word): View
     {
-        //
+        return \view('word.show', compact('category', 'word'))
+            ->with('title', __(':origin - :Locale', [
+                'origin' => $word->origin,
+                'locale' => $word->locale,
+            ]))
+            ->with('description', __('Padanan kata :origin adalah :locale dalam bidang :category', [
+                'origin' => $word->origin,
+                'locale' => $word->locale,
+                'category' => $category->name,
+            ]));
     }
 
     /**

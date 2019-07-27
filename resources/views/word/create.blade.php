@@ -5,10 +5,10 @@
     <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
 
     <div class="doc-body row">
-      <div class="doc-content offset-2 col-md-8 col-12 order-1">
+      <div class="doc-content offset-md-2 col-md-8 col-xs-12 order-1">
         <div class="content-inner">
           <section id="license" class="doc-section">
-            <h2 class="section-title">@lang('Masuk')</h2>
+            <h2 class="section-title">{{ $title }}</h2>
             <div class="section-block">
 
               @if(session('success'))
