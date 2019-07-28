@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Word\SearchEvent;
 use App\Events\Word\StoredEvent;
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
@@ -41,15 +42,9 @@ class WordController extends Controller
             ->paginate(25);
         $words->appends($request->all());
 
-        // TODO: move to event-listener
+        // fire word search event
         if (!empty($request->katakunci)) {
-            Search::create([
-                'user_id' => Auth::id(),
-                'query' => $request->katakunci,
-                'metadata' => [
-                    'results_count' => $words->total(),
-                ],
-            ]);
+            event(new SearchEvent($request->katakunci, $words));
         }
 
         return \view('word.search', compact('words'))
