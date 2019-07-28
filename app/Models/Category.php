@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,7 @@ class Category extends Model implements HasMedia
 {
     use SoftDeletes;
     use HasMediaTrait;
+    use Sluggable;
 
     /**
      * @var array
@@ -40,6 +42,16 @@ class Category extends Model implements HasMedia
     {
         return 'slug';
     }
+
+    /**
+     * @return array
+     */
+   public function sluggable(): array
+   {
+       return [
+           'slug' => ['source' => 'name'],
+       ];
+   }
 
     /**
      * @return HasMany
