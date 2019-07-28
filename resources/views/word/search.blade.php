@@ -51,7 +51,7 @@
         <div id="doc-nav" class="doc-nav">
           <nav id="doc-menu" class="nav doc-menu flex-column sticky">
             @foreach ($words as $word)
-            <a class="nav-link scrollto" href="#{{ $word->slug }}">{{ $word->origin }}</a>
+            <a class="nav-link scrollto" href="#{{ $word->slug }}">{{ $word->origin }} ({{ strtolower($word->category->name) }})</a>
             @endforeach
           </nav><!--//doc-menu-->
         </div>
