@@ -35,7 +35,7 @@
 
                 <li><a href="https://id.wikipedia.org/wiki/Glosarium" target="_blank"><i class="fas fa-external-link-square-alt"></i> Glosarium (Wikipedia)</a></li>
                 <li><a href="https://themes.3rdwavemedia.com/" target="_blank"><i class="fas fa-external-link-square-alt"></i> PrettyDocs HTML Template</a></li>
-                <li><a href="http://118.98.223.79/glosarium/" target="_blank"><i class="fas fa-external-link-square-alt"></i> Glosarium (Pusah Bahasa)</a></li>
+                <li><a href="http://118.98.223.79/glosarium/" target="_blank"><i class="fas fa-external-link-square-alt"></i> Glosarium (Pusat Bahasa)</a></li>
                 <li><a href="https://kateglo.com/" target="_blank"><i class="fas fa-external-link-square-alt"></i> Kateglo ~ Kamus, tesaurus, dan glosarium bahasa Indonesia</a></li>
 
               </ul>
