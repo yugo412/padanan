@@ -7,7 +7,6 @@ use App\Events\Word\StoredEvent;
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
 use App\Models\Like;
-use App\Models\Search;
 use App\Models\Word;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -28,16 +27,17 @@ class WordController extends Controller
             'katakunci' => ['nullable', 'string'],
         ]);
 
-        $words = Word::orderBy('origin')
+        $words = Word::selectRaw('*, MATCH(origin, locale) AGAINST (\''.$request->katakunci.'\' IN BOOLEAN MODE) as score')
             ->where(function ($query) use ($request){
-                return $query->where('origin', 'LIKE', "%{$request->katakunci}%")
-                    ->orWhere('locale', 'LIKE', "%{$request->katakunci}%");
+                return $query->search($request->katakunci ?? '');
             })
             ->when($request->kategori, function ($query) use ($request){
                 return $query->whereHas('category', function ($category) use ($request){
                     return $category->whereSlug($request->kategori);
                 });
             })
+            ->orderByDesc('score')
+            ->orderByRaw('LENGTH(origin) ASC')
             ->withCount('likes')
             ->paginate(25);
         $words->appends($request->all());

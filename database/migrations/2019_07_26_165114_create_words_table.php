@@ -32,6 +32,8 @@ class CreateWordsTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('set null');
+
+            \Illuminate\Support\Facades\DB::query('ALTER TABLE words ADD FULLTEXT (`origin`, `locale`);');
         });
     }
 
