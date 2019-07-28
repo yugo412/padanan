@@ -9,7 +9,7 @@
     <hr>
 
     <div class="mt-4">
-      <loveable link="{{ route('word.love', $word) }}" count="{{ $word->likes_count }}"></loveable>
+      <loveable link="{{ route('word.love', $word) }}" count="{{ $word->total_likes }}"></loveable>
     </div>
   </div><!--//jumbotron-->
 </section><!--//doc-section-->

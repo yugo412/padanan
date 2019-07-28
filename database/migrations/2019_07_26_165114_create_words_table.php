@@ -20,6 +20,7 @@ class CreateWordsTable extends Migration
             $table->string('slug')->unique();
             $table->string('origin');
             $table->string('locale');
+            $table->integer('total_likes')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')

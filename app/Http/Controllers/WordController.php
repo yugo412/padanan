@@ -136,10 +136,9 @@ class WordController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @param Word $word
+     * @return View
      */
     public function show(Category $category, Word $word): View
     {
@@ -197,10 +196,15 @@ class WordController extends Controller
      */
     public function love(Word $word): JsonResponse
     {
-        $word->likes()->save(new Like([
-            'user_id' => Auth::id(),
-            'metadata' => [],
-        ]));
+        $word->increment('total_likes');
+        $word->save();
+
+        if (Auth::check()) {
+            $word->likes()->save(new Like([
+                'user_id' => Auth::id(),
+                'metadata' => [],
+            ]));
+        }
 
         $word->loadCount('likes');
 
