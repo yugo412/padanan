@@ -124,7 +124,9 @@ class WordController extends Controller
 
         $word = Word::create($request->all());
 
-        event(new StoredEvent($word));
+        if (Auth::check()) {
+            event(new StoredEvent($word));
+        }
 
         return redirect()->route('word.create')
             ->with('success', true);
