@@ -61,8 +61,6 @@ class PostWordCommand extends Command
                 __('Kalau dalam bahasa asing disebut :origin, maka dalam basaha Indonesia disebut :locale. Istilah ini umum ada pada bidang :category. #padanan #glosarium', $replaces),
             ];
 
-            dd($templates);
-
             Twitter::send(collect($templates)->random());
         }
     }
