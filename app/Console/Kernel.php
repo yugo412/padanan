@@ -26,6 +26,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('twitter:word:random')
+            ->hourly();
+
+        $schedule->command('twitter:summary')
+            ->weeklyOn(1, '08:00')
+            ->timezone('Asia/Jakarta');
     }
 
     /**

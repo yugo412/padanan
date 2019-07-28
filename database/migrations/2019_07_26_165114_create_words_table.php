@@ -20,6 +20,7 @@ class CreateWordsTable extends Migration
             $table->string('slug')->unique();
             $table->string('origin');
             $table->string('locale');
+            $table->integer('total_likes')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -31,6 +32,8 @@ class CreateWordsTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('set null');
+
+            \Illuminate\Support\Facades\DB::query('ALTER TABLE words ADD FULLTEXT (`origin`, `locale`);');
         });
     }
 

@@ -26,7 +26,7 @@
               <h3>@lang('Deskripsi')</h3>
               <p>@lang('Tidak ada deskripsi untuk padanan kata ini.')</p>
 
-              <loveable link="{{ route('word.love', $word) }}" count="{{ $word->likes_count }}"></loveable>
+              <loveable link="{{ route('word.love', $word) }}" count="{{ $word->total_likes }}"></loveable>
             </div>
 
           </section><!--//doc-section-->

@@ -36,6 +36,7 @@
             <p>@lang('Penelusuran Anda - <strong>:keyword</strong> - tidak cocok dengan dokumen apa pun.', ['keyword' => request('katakunci')])</p>
             <p>@lang('Saran:')</p>
             <ul>
+              <li>@lang('Pastikan katakunci diisi.')</li>
               <li>@lang('Pastikan semua kata dieja dengan benar.')</li>
               <li>@lang('Coba kata kunci yang lain.')</li>
               <li>@lang('Coba kata kunci yang lebih umum.')</li>
