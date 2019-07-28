@@ -26,7 +26,7 @@
 
         axios.post(this.link)
           .then(response => {
-            this.total = response.data.likes_count
+            this.total = response.data.total_likes
           })
       }
     }

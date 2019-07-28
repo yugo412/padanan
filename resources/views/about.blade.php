@@ -11,13 +11,13 @@
         <div class="content-inner">
 
           <section id="about" class="doc-section">
-            <h2 class="section-title">@lang('Apa itu :app?', ['app' => config('app.name')])</h2>
+            <h1 class="section-title">@lang('Apa itu :app?', ['app' => config('app.name')])</h1>
             <div class="section-block">
               <div class="jumbotron text-left">
-                <h1 class="text-center">CC BY 3.0</h1>
-                <p><strong>{{ config('app.name') }}</strong> merupakan aplikasi berbasis web yang menyediakan daftar istilah asing dalam bahasa Indonesia. Dengan nama lain, disebut juga sebagai glosarium.</p>
-                <p>Sebelumnya aplikasi web {{ config('app.name') }} beralamat di <a href="https://glosarium.web.id">glosarium.web.id</a>.</p>
+                <p><strong><a href="{{ route('index') }}">{{ config('app.name') }}</a></strong> merupakan aplikasi berbasis web yang menyediakan daftar istilah asing dalam bahasa Indonesia. Dengan nama lain, disebut juga sebagai glosarium.</p>
+                <p>Sebelumnya aplikasi web {{ config('app.name') }} bernama Glosarium dengan alamat <a href="https://glosarium.web.id">glosarium.web.id</a>.</p>
 
+                <hr>
                 <p>Glosarium adalah suatu daftar alfabetis istilah dalam suatu ranah pengetahuan tertentu yang dilengkapi dengan definisi untuk istilah-istilah tersebut. Biasanya glosarium ada di bagian akhir suatu buku dan menyertakan istilah-istilah dalam buku tersebut yang baru diperkenalkan atau paling tidak, tak umum ditemukan. Glosarium dwibahasa adalah daftar istilah dalam satu bahasa yang didefinisikan dalam bahasa lain atau diberi sinonim (atau paling tidak sinonim terdekat) dalam bahasa lain.</p>
                 <p>Dalam pengertian yang lebih umum, suatu glosarium berisi penjelasan konsep-konsep yang relevan dengan bidang ilmu atau kegiatan tertentu. Dalam pengertian ini, glosarium terkait dengan ontologi. glorasium juga dapat dikatakan sebagai daftar bentuk abjad yang terangkum dalam sebuah buku makalah dll yang memiliki arti dan kadang daftarnya sesuai urutan abjad biasanya juga sering ditemukan di akhir halaman.Glosarium sangat membantu untuk menemukan arti dari kata-kata yang sulit.</p>
 
@@ -35,7 +35,7 @@
 
                 <li><a href="https://id.wikipedia.org/wiki/Glosarium" target="_blank"><i class="fas fa-external-link-square-alt"></i> Glosarium (Wikipedia)</a></li>
                 <li><a href="https://themes.3rdwavemedia.com/" target="_blank"><i class="fas fa-external-link-square-alt"></i> PrettyDocs HTML Template</a></li>
-                <li><a href="http://118.98.223.79/glosarium/" target="_blank"><i class="fas fa-external-link-square-alt"></i> Glosarium (Pusah Bahasa)</a></li>
+                <li><a href="http://118.98.223.79/glosarium/" target="_blank"><i class="fas fa-external-link-square-alt"></i> Glosarium (Pusat Bahasa)</a></li>
                 <li><a href="https://kateglo.com/" target="_blank"><i class="fas fa-external-link-square-alt"></i> Kateglo ~ Kamus, tesaurus, dan glosarium bahasa Indonesia</a></li>
 
               </ul>

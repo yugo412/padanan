@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Listeners\Word;
+namespace App\Listeners\Search;
 
+use App\Models\Search;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Auth;
 
-class TweetListener
+class RecordQuery
 {
     /**
      * Create the event listener.
@@ -25,6 +27,12 @@ class TweetListener
      */
     public function handle($event)
     {
-        //
+        Search::create([
+            'user_id' => Auth::id(),
+            'query' => $event->keyword,
+            'metadata' => [
+                'results_count' => $event->words->total(),
+            ],
+        ]);
     }
 }

@@ -49,7 +49,7 @@
                 </h1>
             </div><!--//branding-->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}">@lang('Home')</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('index') }}">@lang('Beranda')</a></li>
                 @if (isset($title))
                 <li class="breadcrumb-item active">{{ $title }}</li>
                 @endif
@@ -60,7 +60,7 @@
                     <input type="hidden" name="kategori" value="{{ request('kategori') }}">
                     @endif
 
-                    @if (!empty($category))
+                    @if (!empty($category) and request()->routeIs('word.category'))
                       <input type="hidden" name="kategori" value="{{ $category->slug }}">
                       <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari kata dalam bidang :category...', ['category' => $category->name])" name="katakunci" class="form-control search-input" autocomplete="off">
                     @else

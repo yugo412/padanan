@@ -30,22 +30,20 @@ class UpdateTweet
     public function handle(StoredEvent $event)
     {
         $replaces = [
-            ':origin' =>  $event->word->origin,
-            ':locale' => $event->word->locale,
-            ':category' => $event->word->category->name,
-            ':user' => data_get(Auth::user(), 'name', __('Anonim')),
+            'origin' =>  $event->word->origin,
+            'locale' => $event->word->locale,
+            'category' => strtolower($event->word->category->name),
+            'user' => data_get(Auth::user(), 'name', __('Anonim')),
+            'line' => str_repeat(PHP_EOL, 2),
         ];
-
-        $line = str_repeat(PHP_EOL, 2);
 
         $templates = [
-            sprintf('Padanan dalam bidang :category baru saja ditambahkan: %s :origin = :locale %s #padanan #glosarium', $line, $line),
-            sprintf(':user baru saja menambahkan padanan baru dalam bidang :category %s :origin = :locale %s #padanan #glosarium ', $line, $line),
-            sprintf('Padanan baru dalam bidang :category: :origin = :locale. %s Terima kasih :user telah berkontribusi di #padanan #glosarium.', $line),
+            __('Padanan dalam bidang :category baru saja ditambahkan oleh :user:line:origin = :locale:line#padanan #glosarium', $replaces),
+            __(':user baru saja menambahkan padanan baru dalam bidang :category:line:origin = :locale:line#padanan #glosarium', $replaces),
+            __('Padanan baru dalam bidang :category: :origin = :locale.:lineTerima kasih :user telah berkontribusi di #padanan #glosarium.', $replaces),
+            __('Sumbangan dari :user, istilah baru telah ditambahkan.:line:origin = :locale (:category):line#padanan #glosarium', $replaces),
         ];
 
-        $template = str_replace(array_keys($replaces), array_values($replaces), collect($templates)->random());
-
-        Twitter::send($template);
+        Twitter::send(collect($templates)->random());
     }
 }

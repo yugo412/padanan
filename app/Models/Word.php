@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -26,6 +27,7 @@ class Word extends Model
         'slug',
         'origin',
         'locale',
+        'total_likes',
     ];
 
     /**
@@ -92,5 +94,15 @@ class Word extends Model
     public function likes(): MorphMany
     {
         return $this->morphMany(Like::class, 'likeable');
+    }
+
+    /**
+     * @param Builder $builder
+     * @param string $keyword
+     * @return Builder
+     */
+    public function scopeSearch(Builder $builder, string $keyword): Builder
+    {
+        return $builder->whereRaw('MATCH (origin, locale) AGAINST (\''.$keyword.'\' IN BOOLEAN MODE) > 0');
     }
 }

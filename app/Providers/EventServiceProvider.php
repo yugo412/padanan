@@ -21,7 +21,11 @@ class EventServiceProvider extends ServiceProvider
 
         \App\Events\Word\StoredEvent::class => [
             \App\Listeners\Word\UpdateTweet::class,
-        ]
+        ],
+
+        \App\Events\Word\SearchEvent::class => [
+            \App\Listeners\Search\RecordQuery::class,
+        ],
     ];
 
     /**

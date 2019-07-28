@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Word\SearchEvent;
 use App\Events\Word\StoredEvent;
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
 use App\Models\Like;
-use App\Models\Search;
 use App\Models\Word;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -27,29 +27,24 @@ class WordController extends Controller
             'katakunci' => ['nullable', 'string'],
         ]);
 
-        $words = Word::orderBy('origin')
+        $words = Word::selectRaw('*, MATCH(origin, locale) AGAINST (\''.$request->katakunci.'\' IN BOOLEAN MODE) as score')
             ->where(function ($query) use ($request){
-                return $query->where('origin', 'LIKE', "%{$request->katakunci}%")
-                    ->orWhere('locale', 'LIKE', "%{$request->katakunci}%");
+                return $query->search($request->katakunci ?? '');
             })
             ->when($request->kategori, function ($query) use ($request){
                 return $query->whereHas('category', function ($category) use ($request){
                     return $category->whereSlug($request->kategori);
                 });
             })
+            ->orderByDesc('score')
+            ->orderByRaw('LENGTH(origin) ASC')
             ->withCount('likes')
             ->paginate(25);
         $words->appends($request->all());
 
-        // TODO: move to event-listener
+        // fire word search event
         if (!empty($request->katakunci)) {
-            Search::create([
-                'user_id' => Auth::id(),
-                'query' => $request->katakunci,
-                'metadata' => [
-                    'results_count' => $words->total(),
-                ],
-            ]);
+            event(new SearchEvent($request->katakunci, $words));
         }
 
         return \view('word.search', compact('words'))
@@ -129,17 +124,18 @@ class WordController extends Controller
 
         $word = Word::create($request->all());
 
-        event(new StoredEvent($word));
+        if (Auth::check()) {
+            event(new StoredEvent($word));
+        }
 
         return redirect()->route('word.create')
             ->with('success', true);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @param Word $word
+     * @return View
      */
     public function show(Category $category, Word $word): View
     {
@@ -197,10 +193,15 @@ class WordController extends Controller
      */
     public function love(Word $word): JsonResponse
     {
-        $word->likes()->save(new Like([
-            'user_id' => Auth::id(),
-            'metadata' => [],
-        ]));
+        $word->increment('total_likes');
+        $word->save();
+
+        if (Auth::check()) {
+            $word->likes()->save(new Like([
+                'user_id' => Auth::id(),
+                'metadata' => [],
+            ]));
+        }
 
         $word->loadCount('likes');
 
