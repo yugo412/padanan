@@ -60,7 +60,7 @@
                     <input type="hidden" name="kategori" value="{{ request('kategori') }}">
                     @endif
 
-                    @if (!empty($category))
+                    @if (!empty($category) and request()->routeIs('word.category'))
                       <input type="hidden" name="kategori" value="{{ $category->slug }}">
                       <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari kata dalam bidang :category...', ['category' => $category->name])" name="katakunci" class="form-control search-input" autocomplete="off">
                     @else
