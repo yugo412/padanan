@@ -49,7 +49,7 @@
                 </h1>
             </div><!--//branding-->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}">@lang('Home')</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('index') }}">@lang('Beranda')</a></li>
                 @if (isset($title))
                 <li class="breadcrumb-item active">{{ $title }}</li>
                 @endif
