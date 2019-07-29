@@ -22,7 +22,7 @@
                 <p>Dalam pengertian yang lebih umum, suatu glosarium berisi penjelasan konsep-konsep yang relevan dengan bidang ilmu atau kegiatan tertentu. Dalam pengertian ini, glosarium terkait dengan ontologi. glorasium juga dapat dikatakan sebagai daftar bentuk abjad yang terangkum dalam sebuah buku makalah dll yang memiliki arti dan kadang daftarnya sesuai urutan abjad biasanya juga sering ditemukan di akhir halaman.Glosarium sangat membantu untuk menemukan arti dari kata-kata yang sulit.</p>
 
                 <div class="list list-inline text-center">
-                  <a class="btn btn-cta btn-orange" href="https://twitter.com/padanan_id" target="_blank"><i class="fab fa-twitter"></i> @lang('Ikuti :twitter di Twitter', ['twitter' => '@padanan_id'])</a>
+                  <a class="btn btn-cta btn-orange" href="https://twitter.com/{{ config('twitter.username') }}" target="_blank"><i class="fab fa-twitter"></i> @lang('Ikuti :twitter di Twitter', ['twitter' => config('twitter.username')])</a>
                 </div>
               </div><!--//jumbotron-->
             </div><!--//section-block-->
