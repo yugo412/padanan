@@ -18,6 +18,7 @@ class IndexController extends Controller
     {
         $categories = Cache::remember('category.index', now()->addDay(), function (){
             return Category::orderBy('name')
+                ->whereIsPublished(true)
                 ->withCount('words')
                 ->get();
         });
