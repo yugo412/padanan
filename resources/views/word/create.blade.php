@@ -9,6 +9,9 @@
         <div class="content-inner">
           <section id="license" class="doc-section">
             <h2 class="section-title">{{ $title }}</h2>
+            <h6 class="mt-2">@lang('Tambah sebagai :name', [
+              'name' => data_get(auth()->user(), 'name', __('Anonim'))
+            ])</h6>
             <div class="section-block">
 
               @if(session('success'))
@@ -30,7 +33,7 @@
                   <div class="form-group">
                     <label for="email">@lang('Bidang')</label>
                     <select name="category" class="form-control @error('category') is-invalid @enderror" id="category-select">
-                      <option value="">@lang('Pilih bidang')</option>
+                      <option value=""></option>
                       @foreach ($categories as $category)
                         <option value="{{ $category->slug }}">{{ $category->name }}</option>
                       @endforeach
@@ -42,7 +45,7 @@
 
                   <div class="form-group">
                     <label for="email">@lang('Kata asing')</label>
-                    <input type="text" name="origin" value="{{ old('origin') }}" class="form-control @error('origin') is-invalid @enderror">
+                    <input type="text" name="origin" value="{{ old('origin') }}" class="form-control @error('origin') is-invalid @enderror" autocomplete="off">
                     @error('origin')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -50,11 +53,28 @@
 
                   <div class="form-group">
                     <label for="email">@lang('Padanan kata (dalam bahasa Indonesia)')</label>
-                    <input type="text" name="locale" class="form-control @error('locale') is-invalid @enderror">
+                    <input type="text" name="locale" class="form-control @error('locale') is-invalid @enderror" autocomplete="off">
                     @error('locale')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                   </div>
+
+                  @auth
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="tweet" id="remember" {{ old('tweet') ? 'checked' : '' }}>
+
+                          <label class="form-check-label" for="remember">
+                            @lang('Kirim istilah dan padanan baru ke Twitter <a href=":link" target="_blank">:twitter</a>', [
+                              'twitter' => config('twitter.username'),
+                              'link' => 'https://www.twitter.com/'.config('twitter.username'),
+                             ])
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  @endauth
 
                   <div class="form-group">
                     <button class="btn btn-primary" type="submit">@lang('Tambah')</button>
@@ -71,3 +91,20 @@
     </div><!--//doc-body-->
   </div>
 @endsection
+
+@push('css')
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
+@endpush
+
+@push('js')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+  <script>
+    $(function(){
+      $('#category-select').select2({
+        placeholder: '@lang('Pilih salah satu bidang')',
+        theme: 'bootstrap'
+      })
+    })
+  </script>
+@endpush

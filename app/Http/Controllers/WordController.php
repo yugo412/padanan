@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class WordController extends Controller
@@ -103,9 +104,11 @@ class WordController extends Controller
      */
     public function create(): View
     {
-        $categories = Category::orderBy('name')
-            ->whereIsPublished(true)
-            ->get();
+        $categories = Cache::remember('category.word.index', now()->addDay(), function (){
+            return Category::orderBy('name')
+                ->whereIsPublished(true)
+                ->get();
+        });
 
         return \view('word.create', compact('categories'))
             ->with('title', __('Tambah kata'));
@@ -124,7 +127,7 @@ class WordController extends Controller
 
         $word = Word::create($request->all());
 
-        if (Auth::check()) {
+        if (Auth::check() and $request->has('tweet')) {
             event(new StoredEvent($word));
         }
 

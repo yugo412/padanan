@@ -29,4 +29,16 @@ class StoreRequest extends FormRequest
             'category' => ['required', 'string', 'exists:categories,slug'],
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function attributes(): array
+    {
+        return [
+            'category' => __('bidang'),
+            'origin' => __('istilah asing'),
+            'locale' => __('padanan'),
+        ];
+    }
 }
