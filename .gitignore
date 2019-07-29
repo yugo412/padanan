@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /.idea
+/app/Console/Commands/Scrapper
 .env
 .phpunit.result.cache
 Homestead.json
