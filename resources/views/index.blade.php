@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/elegant_font/css/style.css') }}">
 
     <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link id="theme-style" rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
     @stack('css')
 
