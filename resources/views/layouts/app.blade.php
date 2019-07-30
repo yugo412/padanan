@@ -64,7 +64,7 @@
                 @auth
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}">
-                      @lang('Keluar')
+                      @lang('Keluar') ({{ auth()->user()->name }})
                     </a>
                   </li>
                 @endif
