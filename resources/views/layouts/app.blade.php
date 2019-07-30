@@ -48,34 +48,55 @@
                     </a>
                 </h1>
             </div><!--//branding-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('index') }}">@lang('Beranda')</a></li>
-                @if (isset($title))
-                <li class="breadcrumb-item active">{{ $title }}</li>
-                @endif
-            </ol>
-            <div class="top-search-box">
-                <form class="form-inline search-form justify-content-center" action="{{ route('word.search') }}" method="get">
-                    @if (request('kategori'))
-                    <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-                    @endif
 
-                    @if (!empty($category) and request()->routeIs('word.category'))
-                      <input type="hidden" name="kategori" value="{{ $category->slug }}">
-                      <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari kata dalam bidang :category...', ['category' => $category->name])" name="katakunci" class="form-control search-input" autocomplete="off">
-                    @else
-                      <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Kata dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
-                    @endif
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{ route('index') }}">@lang('Beranda')</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
-                </form>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ !request()->routeIs('word.create') ?: 'active' }}">
+                  <a class="nav-link" href="{{ route('word.create') }}">@lang('Tambah Istilah')</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @lang('Kontributor')
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('login') }}">@lang('Masuk')</a>
+                    <a class="dropdown-item" href="{{ route('password.request') }}">@lang('Lupa Sandilewat')</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('register') }}">@lang('Daftar')</a>
+                  </div>
+                </li>
+              </ul>
             </div>
+          </nav>
+
+            <div class="top-search-box">
+              <form class="form-inline search-form justify-content-center" action="{{ route('word.search') }}" method="get">
+                @if (request('kategori'))
+                <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+                @endif
+
+                @if (!empty($category) and request()->routeIs('word.category'))
+                  <input type="hidden" name="kategori" value="{{ $category->slug }}">
+                  <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari kata dalam bidang :category...', ['category' => $category->name])" name="katakunci" class="form-control search-input" autocomplete="off">
+                @else
+                  <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Kata dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
+                @endif
+
+                <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
 
         </div><!--//container-->
     </header><!--//header-->
 
     <div class="doc-wrapper" id="app">
-        @yield('content')
+      @yield('content')
     </div>
 
 </div><!--//page-wrapper-->
