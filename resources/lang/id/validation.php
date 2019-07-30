@@ -144,5 +144,8 @@ return [
     */
 
     'attributes' => [
+        'name' => 'nama lengkap',
+        'email' => 'alamat surel',
+        'password' => 'sandilewat',
     ],
 ];

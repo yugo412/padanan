@@ -12,9 +12,9 @@ return [
     |
     */
 
-    'password' => 'Kata sandi minimal harus memiliki enam karakter dan cocok dengan konfirmasi.',
-    'reset'    => 'Kata sandi Anda sudah direset!',
-    'sent'     => 'Kami sudah mengirim surel yang berisi tautan untuk mereset kata sandi Anda!',
-    'token'    => 'Token pengaturan ulang kata sandi tidak sah.',
+    'password' => 'Sandilewat minimal harus memiliki enam karakter dan cocok dengan konfirmasi.',
+    'reset'    => 'Sandilewat Anda sudah direset!',
+    'sent'     => 'Kami sudah mengirim surel yang berisi tautan untuk menyetel ulang sandilewat Anda!',
+    'token'    => 'Token pengaturan ulang sandilewat tidak sah.',
     'user'     => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
 ];

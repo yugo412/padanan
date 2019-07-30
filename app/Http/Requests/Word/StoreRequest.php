@@ -36,7 +36,7 @@ class StoreRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'category' => __('bidang'),
+            'category' => __('"bidang"'),
             'origin' => __('istilah asing'),
             'locale' => __('padanan'),
         ];
