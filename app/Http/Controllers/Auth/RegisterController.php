@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\View\View;
 
 class RegisterController extends Controller
 {
@@ -38,6 +39,27 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return View
+     * @throws \Exception
+     */
+    public function showRegistrationForm(): View
+    {
+        $countUser = cache()->remember('user.count', now()->addHour(), function (){
+            return User::count();
+        });
+
+        $number = new \NumberFormatter('Id_ID', \NumberFormatter::DECIMAL);
+
+        return view('auth.register', compact('countUser', 'number'))
+            ->with('title', __('Bergabung dengan :count kontributor lainnya di :app', [
+                'count' => $number->format($countUser),
+                'app' => config('app.name'),
+            ]));
     }
 
     /**

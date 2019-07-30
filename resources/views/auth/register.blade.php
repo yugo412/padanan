@@ -9,6 +9,7 @@
         <div class="content-inner">
           <section id="license" class="doc-section">
             <h2 class="section-title">@lang('Daftar')</h2>
+            <h6 class="mt-2">{{ $title }}</h6>
             <div class="section-block">
               <div class="jumbotron text-left">
                 <form action="{{ route('register') }}" method="post">
