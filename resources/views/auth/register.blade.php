@@ -5,10 +5,10 @@
     <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
 
     <div class="doc-body row">
-      <div class="doc-content col-md-9 col-12 order-1">
+      <div class="doc-content offset-lg-2 col-lg-8 col-12 order-1">
         <div class="content-inner">
           <section id="license" class="doc-section">
-            <h2 class="section-title">@lang('Masuk')</h2>
+            <h2 class="section-title">@lang('Daftar')</h2>
             <div class="section-block">
               <div class="jumbotron text-left">
                 <form action="{{ route('register') }}" method="post">
@@ -57,14 +57,6 @@
 
         </div><!--//content-inner-->
       </div><!--//doc-content-->
-      <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
-        <div id="doc-nav" class="doc-nav">
-          <nav id="doc-menu" class="nav doc-menu flex-column sticky">
-            <a class="nav-link" href="{{ route('register') }}">@lang('Daftar')</a>
-            <a class="nav-link scrollto" href="#credits">@lang('Lupa sandilewat')</a>
-          </nav><!--//doc-menu-->
-        </div>
-      </div><!--//doc-sidebar-->
     </div><!--//doc-body-->
   </div>
 @endsection

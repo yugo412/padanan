@@ -60,6 +60,16 @@
                 <li class="nav-item {{ !request()->routeIs('word.create') ?: 'active' }}">
                   <a class="nav-link" href="{{ route('word.create') }}">@lang('Tambah Istilah')</a>
                 </li>
+
+                @auth
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}">
+                      @lang('Keluar')
+                    </a>
+                  </li>
+                @endif
+
+                @guest
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @lang('Kontributor')
@@ -71,6 +81,7 @@
                     <a class="dropdown-item" href="{{ route('register') }}">@lang('Daftar')</a>
                   </div>
                 </li>
+                @endguest
               </ul>
             </div>
           </nav>

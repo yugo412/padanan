@@ -1,47 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+  <div class="container">
+    <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="doc-body row">
+      <div class="doc-content offset-lg-2 col-lg-8 col-12 order-1">
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+        @includeWhen(session('status'), 'layouts.callouts.info', [
+          'title' => __('Berhasil!'),
+          'message' => session('status'),
+        ])
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+        <div class="content-inner">
+          <section id="license" class="doc-section">
+            <h2 class="section-title">@lang('Lupa Sandilewat')</h2>
+            <div class="section-block">
+              <div class="jumbotron text-left">
+                <form action="{{ route('password.email') }}" method="post">
+                  @csrf
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                  <div class="form-group">
+                    <label for="email">@lang('Alamat surel')</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary" type="submit">@lang('Kirim Instruksi')</button>
+                  </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                </form>
+              </div><!--//jumbotron-->
+            </div><!--//section-block-->
+
+          </section><!--//doc-section-->
+
+        </div><!--//content-inner-->
+      </div><!--//doc-content-->
+    </div><!--//doc-body-->
+  </div>
 @endsection

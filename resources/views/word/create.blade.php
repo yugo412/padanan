@@ -5,7 +5,7 @@
     <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
 
     <div class="doc-body row">
-      <div class="doc-content offset-md-2 col-md-8 col-xs-12 order-1">
+      <div class="doc-content offset-lg-2 col-lg-8 col-12 order-1">
         <div class="content-inner">
           <section id="license" class="doc-section">
             <h2 class="section-title">{{ $title }}</h2>
