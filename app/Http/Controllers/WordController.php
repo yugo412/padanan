@@ -145,11 +145,11 @@ class WordController extends Controller
         $word->loadCount('likes');
 
         return \view('word.show', compact('category', 'word'))
-            ->with('title', __(':origin - :Locale', [
+            ->with('title', __('Padanan istilah :origin adalah :locale', [
                 'origin' => $word->origin,
                 'locale' => $word->locale,
             ]))
-            ->with('description', __('Padanan kata :origin adalah :locale dalam bidang :category', [
+            ->with('description', __('Padanan istilah :origin adalah :locale dalam bidang :category', [
                 'origin' => $word->origin,
                 'locale' => $word->locale,
                 'category' => $category->name,
