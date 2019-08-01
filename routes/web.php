@@ -28,5 +28,5 @@ Route::get('/kata', 'WordController@index')->name('word.index');
 Route::get('/kategori', 'CategoryController@index')->name('category.index');
 
 Route::post('/{word}/suka', 'WordController@love')->name('word.love');
-Route::get('/{category}', 'WordController@category')->name('word.category');
-Route::get('/{category}/{word}', 'WordController@show')->name('word.show');
+Route::get('/bidang/{category}', 'WordController@category')->name('word.category');
+Route::get('/{word}', 'WordController@show')->name('word.show');
