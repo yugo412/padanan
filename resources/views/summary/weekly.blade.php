@@ -69,7 +69,7 @@
           <tbody>
           @foreach($words as $word)
             <tr>
-              <td>{{ $word->origin }}</td>
+              <td><a href="{{ route('word.show', $word) }}">{{ $word->origin }}</a></td>
               <td>{{ $word->locale }}</td>
               <td>{{ data_get($word->user, 'name', __('Anonim')) }}</td>
             </tr>
