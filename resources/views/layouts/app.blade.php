@@ -61,6 +61,10 @@
                   <a class="nav-link" href="{{ route('word.create') }}">@lang('Tambah Istilah')</a>
                 </li>
 
+                <li class="nav-item {{ !request()->routeIs('summary.weekly') ?: 'active' }}">
+                  <a class="nav-link" href="{{ route('summary.weekly') }}">@lang('Ringkasan Mingguan')</a>
+                </li>
+
                 @auth
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}">

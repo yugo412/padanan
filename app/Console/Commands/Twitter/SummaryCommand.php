@@ -20,7 +20,7 @@ class SummaryCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send weekly summary to Twitter';
 
     /**
      * Create a new command instance.
@@ -49,19 +49,23 @@ class SummaryCommand extends Command
 
         $line = str_repeat(PHP_EOL, 2);
 
+        $link = route('summary.weekly', ['sub' => 1]);
+
         if ($newWordCount >= 1) {
-            $template = __(':newCount padanan baru berhasil ditambahkan minggu lalu. Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor. 🤗', [
+            $template = __(':newCount padanan baru berhasil ditambahkan minggu lalu. Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor. 🤗:line:link', [
                 'newCount' => $number->format($newWordCount),
                 'count' => $number->format($wordCount),
                 'app' => config('app.name'),
                 'line' => $line,
+                'link' => $link,
             ]);
         }
         else {
-            $template = __('Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor.🤗 🤗', [
+            $template = __('Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor.🤗 :line:link🤗', [
                 'count' => $number->format($wordCount),
                 'app' => config('app.name'),
                 'line' => $line,
+                'link' => $link,
             ]);
         }
 
