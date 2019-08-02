@@ -20,7 +20,7 @@
           @each('word.content', $words, 'word')
         </div><!--//content-inner-->
 
-        {{ $words->links() }}
+        {{ $words->onEachSide(1)->links() }}
       </div><!--//doc-content-->
       <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
         <div id="doc-nav" class="doc-nav">
