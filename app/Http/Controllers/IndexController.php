@@ -31,6 +31,6 @@ class IndexController extends Controller
         );
 
         return \view('index', compact('categories', 'wordCount', 'number'))
-            ->with('title', __('Cari :count padanan kata asing dalam bahasa Indonesia', ['count' => $wordCount]));
+            ->with('title', __('Cari :count padanan istilah asing dalam bahasa Indonesia', ['count' => $wordCount]));
     }
 }

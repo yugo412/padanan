@@ -50,7 +50,7 @@
 
             <div class="main-search-box pt-3 pb-4 d-inline-block">
                 <form class="form-inline search-form justify-content-center" action="{{ route('word.search') }}" method="get">
-                    <input type="text" placeholder="@lang('Kata dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
+                    <input type="text" placeholder="@lang('Istilah dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
                     <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -59,9 +59,9 @@
 
     <section class="cards-section text-center">
         <div class="container">
-            <h2 class="title">@lang('Cari kata dalam berbagai kategori!')</h2>
+            <h2 class="title">@lang('Cari istilah dalam berbagai kategori!')</h2>
             <div class="intro">
-              <p>Mulai dengan mencari istilah asing maupun istilah dalam bahasa Indonesia. Kata yang sama bisa memiliki padanan yang berbeda untuk kategori yang berbeda.</p>
+              <p>@lang('Mulai dengan mencari istilah asing maupun istilah dalam bahasa Indonesia. Istilah yang sama bisa memiliki padanan yang berbeda untuk kategori yang berbeda.')</p>
               <div class="cta-container">
                 <a class="btn btn-primary btn-cta" href="{{ route('about') }}"><i class="fa fa-question-circle-o fa-fw"></i> @lang('Tentang kami')</a>
               </div>
@@ -75,7 +75,7 @@
                       <i class="icon icon_document"></i>
                     </div><!--//icon-holder-->
                     <h3 class="title">{{ $category->name }}</h3>
-                    <p class="intro">@lang(':count kata', ['count' => $number->format($category->words_count)])</p>
+                    <p class="intro">@lang(':count istilah', ['count' => $number->format($category->words_count)])</p>
                     <p class="intro">{{ \Illuminate\Support\Str::substr($category->description, 0, 100) }}</p>
                     <a class="link" href="{{ route('word.category', $category) }}"></a>
                   </div>
