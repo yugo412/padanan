@@ -136,15 +136,14 @@ class WordController extends Controller
     }
 
     /**
-     * @param Category $category
      * @param Word $word
      * @return View
      */
-    public function show(Category $category, Word $word): View
+    public function show(Word $word): View
     {
-        $word->loadCount('likes');
+        $word->load('category');
 
-        return \view('word.show', compact('category', 'word'))
+        return \view('word.show', compact('word'))
             ->with('title', __('Padanan istilah :origin adalah :locale', [
                 'origin' => $word->origin,
                 'locale' => $word->locale,
@@ -152,7 +151,7 @@ class WordController extends Controller
             ->with('description', __('Padanan istilah :origin adalah :locale dalam bidang :category', [
                 'origin' => $word->origin,
                 'locale' => $word->locale,
-                'category' => $category->name,
+                'category' => strtolower($word->category->name),
             ]));
     }
 

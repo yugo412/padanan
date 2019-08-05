@@ -14,7 +14,7 @@
       <div class="doc-content offset-md-2 col-md-8 col-xs-12 order-1">
         <div class="content-inner">
           <section id="license" class="doc-section">
-            <h2 class="section-title">{{ $category->name }}</h2>
+            <h2 class="section-title">{{ $word->category->name }}</h2>
             <div class="section-block">
 
               <div class="jumbotron text-left">
