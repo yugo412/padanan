@@ -20,6 +20,7 @@ class IndexController extends Controller
             return Category::orderBy('name')
                 ->whereIsPublished(true)
                 ->withCount('words')
+                ->whereHas('words')
                 ->get();
         });
 
