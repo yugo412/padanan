@@ -28,7 +28,7 @@
 
     <div class="row">
 
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-6 col-sm-12">
         <div class="jumbotron text-right">
           <h2>{{ $number->format($count['new_word']) }}</h2>
           <p>@lang('Istilah baru')</p>
@@ -38,7 +38,17 @@
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-6 col-sm-12">
+        <div class="jumbotron text-right">
+          <h2>{{ $number->format($count['new_report']) }}</h2>
+          <p>@lang('Laporan kesalahan baru')</p>
+          <hr>
+          <h4>{{ $number->format($count['total_report']) }}</h4>
+          <p>@lang('Total laporan')</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
         <div class="jumbotron text-right">
           <h2>{{ $number->format($count['new_category']) }}</h2>
           <p>@lang('Bidang baru')</p>
@@ -48,7 +58,7 @@
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-6 col-sm-12">
         <div class="jumbotron text-right">
           <h2>{{ $number->format($count['new_user']) }}</h2>
           <p>@lang('Kontributor baru')</p>
