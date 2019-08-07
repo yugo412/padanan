@@ -2,7 +2,7 @@
   <div class="jumbotron">
     <h2>
       {{ $word->origin }}
-      <a href="{{ route('word.show', $word) }}" title="@lang('Lihat rincian')"><i class="fa fa-question-circle-o fa-fw"></i></a><br>
+      <br>
       <small><a href="{{ route('word.category', $word->category) }}">{{ $word->category->name }}</a></small>
     </h2>
     <h2>{{ $word->locale }}</h2>
