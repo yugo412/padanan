@@ -6,6 +6,8 @@ return [
      * Default role for registered user.
      */
     'role' => [
+        'roles' => ['Admin', 'Editor', 'Moderator', 'Kontributor'],
+
         'default' => 'Kontributor',
     ],
 
