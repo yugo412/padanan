@@ -27,6 +27,8 @@
               <p>@lang('Tidak ada deskripsi untuk padanan kata ini.')</p>
 
               <loveable link="{{ route('word.love', $word) }}" count="{{ $word->total_likes }}"></loveable>
+              <reportable link="{{ route('word.report', $word) }}" total="{{ $word->reports_count }}"
+                          auth="{{ auth()->check() }}"></reportable>
             </div>
 
           </section><!--//doc-section-->

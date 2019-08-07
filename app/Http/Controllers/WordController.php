@@ -126,6 +126,7 @@ class WordController extends Controller
     {
         $category = Category::whereSlug($request->category)->firstOrFail();
         $request->merge([
+            'user_id' => Auth::id(),
             'category_id' => $category->id,
         ]);
 
@@ -145,6 +146,8 @@ class WordController extends Controller
      */
     public function show(Word $word): View
     {
+        $word->loadCount('reports');
+
         return \view('word.show', compact('word'))
             ->with('title', __('Padanan istilah :origin adalah :locale', [
                 'origin' => $word->origin,
