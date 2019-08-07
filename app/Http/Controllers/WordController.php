@@ -145,8 +145,6 @@ class WordController extends Controller
      */
     public function show(Word $word): View
     {
-        $word->load('category');
-
         return \view('word.show', compact('word'))
             ->with('title', __('Padanan istilah :origin adalah :locale', [
                 'origin' => $word->origin,
