@@ -38,7 +38,7 @@ class ForgotPasswordController extends Controller
     public function showLinkRequestForm()
     {
         return view('auth.passwords.email')
-            ->with('title', __('Lupa sandilewat'))
+            ->with('title', __('Lupa Sandilewat'))
             ->with('description', 'Sudah terdaftar sebagai kontributor tapi lupa sandilewat? Kami bantu dengan mengirim surel instruksi setel ulang sandilewat');
     }
 }

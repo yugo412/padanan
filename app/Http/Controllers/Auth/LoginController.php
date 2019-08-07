@@ -45,7 +45,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('auth.login')
-            ->with('title', __('Masuk sebagai kontributor'))
+            ->with('title', __('Masuk Sebagai Kontributor'))
             ->with('description', __('Masuk sebagai anggota untuk memberikan kontribusi lebih di :app', [
                 'app' => config('app.name'),
             ]));

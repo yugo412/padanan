@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@push('metadata')
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description ?? $title }}">
+  <meta property="og:url" content="{{ url()->current() }}" />
+@endpush
+
 @section('content')
   <div class="container">
     <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
@@ -21,7 +27,7 @@
                 </div><!--//icon-holder-->
                 <div class="content">
                   <h4 class="callout-title">@lang('Halo, :name!', ['name' => data_get(auth()->user(), 'name', 'orang asing')])</h4>
-                  <p>@lang('Terima kasih telah menambahkan kata baru di <strong>:app</strong>. Bantuan Anda sangat berarti buat perkembangan aplikasi.', ['app' => config('app.name')])</p>
+                  <p>@lang('Terima kasih telah menambahkan istilah di <strong>:app</strong>. Bantuan Anda sangat berarti buat perkembangan aplikasi.', ['app' => config('app.name')])</p>
                 </div><!--//content-->
               </div>
               @endif

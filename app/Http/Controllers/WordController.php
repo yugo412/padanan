@@ -111,7 +111,8 @@ class WordController extends Controller
         });
 
         return \view('word.create', compact('categories'))
-            ->with('title', __('Tambah kata'));
+            ->with('title', __('Tambah Istilah'))
+            ->with('description', __('Tambah istilah bahasa asing dan padanan dalam bahasa Indonesia untuk memperkaya kosakata'));
     }
 
     /**

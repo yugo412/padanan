@@ -64,6 +64,7 @@ class SummaryController extends Controller
                 'week_start' => $start->monthName,
                 'day_end' => $end->format('d'),
                 'week_end' => $end->monthName,
-            ]));
+            ]))
+            ->with('description', __('Lihat ringkasan kegiatan di :app dalam seminggu', ['app' => config('app.name')]));
     }
 }

@@ -56,7 +56,7 @@ class RegisterController extends Controller
         $number = new \NumberFormatter('Id_ID', \NumberFormatter::DECIMAL);
 
         return view('auth.register', compact('countUser', 'number'))
-            ->with('title', __('Bergabung dengan :count kontributor lainnya di :app', [
+            ->with('title', __('Bergabung dengan :count Kontributor Lainnya di :app', [
                 'count' => $number->format($countUser),
                 'app' => config('app.name'),
             ]));
