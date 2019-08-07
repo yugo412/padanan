@@ -106,6 +106,14 @@ class Word extends Model
     }
 
     /**
+     * @return MorphMany
+     */
+    public function reports(): MorphMany
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
+
+    /**
      * @param Builder $builder
      * @param string $keyword
      * @return Builder

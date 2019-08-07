@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Auth'], function (){
    Route::get('keluar', 'LoginController@logout')->name('logout');
 });
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tentang', 'AboutController')->name('about');
@@ -35,5 +36,8 @@ Route::get('/kategori', 'CategoryController@index')->name('category.index');
 Route::get('/ringkasan-mingguan', 'SummaryController@weekly')->name('summary.weekly');
 
 Route::post('/{word}/suka', 'WordController@love')->name('word.love');
+Route::post('/{word}/lapor', 'WordController@report')
+    ->name('word.report')
+    ->middleware('auth');
 Route::get('/bidang/{category}', 'WordController@category')->name('word.category');
 Route::get('/{word}', 'WordController@show')->name('word.show');

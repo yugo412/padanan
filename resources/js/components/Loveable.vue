@@ -1,7 +1,5 @@
 <template>
-  <div class="loves">
-    <button @click.prevent="love" class="btn btn-sm btn-outline-danger"><i class="icon icon_heart"></i> {{ total }}</button>
-  </div>
+  <button @click.prevent="love" class="btn btn-sm btn-outline-danger"><i class="icon icon_heart"></i> {{ total }}</button>
 </template>
 
 <script>

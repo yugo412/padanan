@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Events\Word\SearchEvent;
 use App\Events\Word\StoredEvent;
+use App\Http\Requests\Word\ReportRequest;
 use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
 use App\Models\Like;
+use App\Models\Report;
 use App\Models\Word;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -39,7 +41,8 @@ class WordController extends Controller
             })
             ->orderByDesc('score')
             ->orderByRaw('LENGTH(origin) ASC')
-            ->withCount('likes')
+//            ->withCount('likes')
+            ->withCount('reports')
             ->paginate(25);
         $words->appends($request->all());
 
@@ -64,7 +67,7 @@ class WordController extends Controller
     {
         $words = Word::where('category_id', $category->id)
             ->orderBy('origin')
-            ->withCount('likes')
+            ->withCount('reports')
             ->paginate();
         $words->appends($request->all());
 
@@ -207,6 +210,23 @@ class WordController extends Controller
         }
 
         $word->loadCount('likes');
+
+        return response()->json($word);
+    }
+
+    /**
+     * @param ReportRequest $request
+     * @param Word $word
+     * @return JsonResponse
+     */
+    public function report(ReportRequest $request, Word $word): JsonResponse
+    {
+        $word->reports()->save(new Report([
+            'user_id' => Auth::id(),
+            'description' => $request->description,
+        ]));
+
+        $word->loadCount('reports');
 
         return response()->json($word);
     }
