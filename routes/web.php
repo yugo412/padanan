@@ -14,7 +14,12 @@
 Route::any('/', 'IndexController')->name('index');
 
 Auth::routes();
-Route::get('/keluar', 'Auth\LoginController@logout')->name('logout');
+Route::group(['namespace' => 'Auth'], function (){
+   Route::get('masuk', 'LoginController@showLoginForm')->name('login');
+   Route::get('lupa-sandilewat', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+   Route::get('daftar', 'RegisterController@showRegistrationForm')->name('register');
+   Route::get('keluar', 'LoginController@logout')->name('logout');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
