@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@push('metadata')
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description ?? $title }}">
+  <meta property="og:url" content="{{ url()->current() }}" />
+@endpush
+
 @section('content')
   <div class="container">
     <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
@@ -12,7 +18,7 @@
             <h6 class="mt-2">{{ $title }}</h6>
             <div class="section-block">
               <div class="jumbotron text-left">
-                <form action="{{ route('register') }}" method="post">
+                <form action="{{ url('register') }}" method="post">
                   @csrf
 
                   <div class="form-group">

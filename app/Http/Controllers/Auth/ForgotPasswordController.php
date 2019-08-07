@@ -29,4 +29,16 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
+    {
+        return view('auth.passwords.email')
+            ->with('title', __('Lupa sandilewat'))
+            ->with('description', 'Sudah terdaftar sebagai kontributor tapi lupa sandilewat? Kami bantu dengan mengirim surel instruksi setel ulang sandilewat');
+    }
 }

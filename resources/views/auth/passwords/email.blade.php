@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@push('metadata')
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $description ?? $title }}">
+  <meta property="og:url" content="{{ url()->current() }}" />
+@endpush
+
 @section('content')
   <div class="container">
     <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
