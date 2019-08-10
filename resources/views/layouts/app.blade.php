@@ -32,6 +32,8 @@
 
     @stack('css')
 
+  @include('layouts.adsense.connect')
+
 </head>
 
 <body class="body-orange">

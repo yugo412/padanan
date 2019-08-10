@@ -30,6 +30,8 @@
 
     @stack('css')
 
+  @include('layouts.adsense.connect')
+
 </head>
 
 <body class="landing-page">
