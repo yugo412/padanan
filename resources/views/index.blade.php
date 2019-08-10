@@ -72,7 +72,7 @@
                 <div class="item item-orange col-lg-4 col-md-6 col-12">
                   <div class="item-inner">
                     <div class="icon-holder">
-                      <i class="icon fa fa-{{ $category->metadata['icon'] ?? 'car' }} fa-fw"></i>
+                      <i class="icon fa fa-{{ $category->metadata['icon'] ?? 'list' }} fa-fw"></i>
                     </div><!--//icon-holder-->
                     <h3 class="title">{{ $category->name }}</h3>
                     <p class="intro">@lang(':count istilah', ['count' => $number->format($category->words_count)])</p>
