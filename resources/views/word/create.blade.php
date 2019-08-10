@@ -37,7 +37,12 @@
                   @csrf
 
                   <div class="form-group">
-                    <label for="email">@lang('Bidang')</label>
+                    <label for="category">
+                      @lang('Bidang')
+                      @if (!empty($category))
+                        (@lang('default'): {{ $category->name }})
+                      @endif
+                    </label>
                     <select name="category" class="form-control @error('category') is-invalid @enderror" id="category-select">
                       <option value=""></option>
                       @foreach ($categories as $category)
@@ -50,7 +55,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="email">@lang('Kata asing')</label>
+                    <label for="origin">@lang('Kata asing')</label>
                     <input type="text" name="origin" value="{{ old('origin') }}" class="form-control @error('origin') is-invalid @enderror" autocomplete="off">
                     @error('origin')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -58,9 +63,19 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="email">@lang('Padanan kata (dalam bahasa Indonesia)')</label>
+                    <label for="locale">@lang('Padanan kata (dalam bahasa Indonesia)')</label>
                     <input type="text" name="locale" class="form-control @error('locale') is-invalid @enderror" autocomplete="off">
                     @error('locale')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label for="source">@lang('Sumber')</label>
+                    <textarea name="source" id="source-form" class="form-control @error('source') is-invalid @enderror"
+                              rows="5"
+                              placeholder="@lang('Pranala, kutipan, artikel, dsb...')">{{ old('source') }}</textarea>
+                    @error('source')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                   </div>

@@ -78,7 +78,7 @@
           <tr>
             <th>@lang('Istilah')</th>
             <th>@lang('Padanan')</th>
-            <th>@lang('Kontributor')</th>
+            <th>@lang('Bidang')</th>
           </tr>
           </thead>
 
@@ -87,7 +87,8 @@
             <tr>
               <td><a href="{{ route('word.show', $word) }}">{{ $word->origin }}</a></td>
               <td>{{ $word->locale }}</td>
-              <td>{{ data_get($word->user, 'name', __('Anonim')) }}</td>
+              <td><a href="{{ route('word.category', $word->category) }}"
+                     title="{{ $word->category->name }}">{{ $word->category->name }}</a></td>
             </tr>
           @endforeach
           </tbody>

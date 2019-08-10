@@ -28,6 +28,7 @@ class Word extends Model
         'slug',
         'origin',
         'locale',
+        'source',
         'total_likes',
     ];
 

@@ -77,7 +77,6 @@ class SummaryController extends Controller
         });
 
         $words = Word::orderByDesc('created_at')
-            ->with('user')
             ->where('created_at', '>=', $start->format('Y-m-d'))
             ->where('created_at', '<=', $end->format('Y-m-d'))
             ->get();

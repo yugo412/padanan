@@ -24,6 +24,7 @@ class Category extends Model implements HasMedia
         'description',
         'metadata',
         'is_published',
+        'is_default',
     ];
 
     /**
@@ -31,6 +32,7 @@ class Category extends Model implements HasMedia
      */
     protected $casts = [
         'is_published' => 'boolean',
+        'is_default' => 'boolean',
         'metadata' => 'json',
         'deleted_at' => 'datetime',
     ];

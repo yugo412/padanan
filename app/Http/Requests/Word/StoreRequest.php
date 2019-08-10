@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Word;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -23,10 +24,13 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
+        $default = Category::whereIsDefault(true)->first();
+
         return [
             'origin' => ['required', 'string', 'max:200'],
             'locale' => ['required', 'string', 'max:200'],
-            'category' => ['required', 'string', 'exists:categories,slug'],
+            'category' => [empty($default) ? 'required' : 'nullable', 'string', 'exists:categories,slug'],
+            'source' => ['nullable', 'string', 'max:300'],
         ];
     }
 
@@ -39,6 +43,7 @@ class StoreRequest extends FormRequest
             'category' => __('"bidang"'),
             'origin' => __('istilah asing'),
             'locale' => __('padanan'),
+            'source' => __('sumber'),
         ];
     }
 }

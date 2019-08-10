@@ -20,7 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 100);
             $table->text('description');
             $table->text('metadata');
-            $table->boolean('is_published');
+            $table->boolean('is_published')->default(true);
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

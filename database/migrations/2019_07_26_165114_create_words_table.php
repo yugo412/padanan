@@ -20,6 +20,7 @@ class CreateWordsTable extends Migration
             $table->string('slug')->unique();
             $table->string('origin');
             $table->string('locale');
+            $table->string('source', 300)->nullable();
             $table->integer('total_likes')->default(0);
             $table->timestamps();
 
@@ -32,9 +33,9 @@ class CreateWordsTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('set null');
-
-            \Illuminate\Support\Facades\DB::statement('ALTER TABLE words ADD FULLTEXT (`origin`, `locale`);');
         });
+
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE words ADD FULLTEXT (`origin`, `locale`);');
     }
 
     /**

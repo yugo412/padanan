@@ -113,7 +113,11 @@ class WordController extends Controller
                 ->get();
         });
 
-        return \view('word.create', compact('categories'))
+        $category = Cache::remember('category.default', now()->addMinutes(30), function () {
+            return Category::whereIsDefault(true)->first();
+        });
+
+        return \view('word.create', compact('categories', 'category'))
             ->with('title', __('Tambah Istilah'))
             ->with('description', __('Tambah istilah bahasa asing dan padanan dalam bahasa Indonesia untuk memperkaya kosakata'));
     }
@@ -124,7 +128,12 @@ class WordController extends Controller
      */
     public function store(StoreRequest $request): RedirectResponse
     {
-        $category = Category::whereSlug($request->category)->firstOrFail();
+        if (empty($request->category)) {
+            $category = Category::whereIsDefault(true)->first();
+        } else {
+            $category = Category::whereSlug($request->category)->firstOrFail();
+        }
+
         $request->merge([
             'user_id' => Auth::id(),
             'category_id' => $category->id,
