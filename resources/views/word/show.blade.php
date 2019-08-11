@@ -14,7 +14,12 @@
       <div class="doc-content offset-md-2 col-md-8 col-xs-12 order-1">
         <div class="content-inner">
           <section id="license" class="doc-section">
-            <h2 class="section-title">{{ $word->category->name }}</h2>
+            <h2 class="section-title">
+              @if (!empty($word->category['icon']))
+                <i class="fa fa-{{ $worc->category['icon'] }} fa-fw text-info"></i>
+              @endif
+              {{ $word->category->name }}
+            </h2>
             <div class="section-block">
 
               <div class="jumbotron text-left">
@@ -32,6 +37,10 @@
             </div>
 
           </section><!--//doc-section-->
+
+          <section>
+            @include('layouts.adsense.responsive')
+          </section>
 
         </div><!--//content-inner-->
       </div><!--//doc-content-->
