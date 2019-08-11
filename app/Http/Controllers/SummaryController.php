@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Report;
+use App\Models\Search;
 use App\Models\Word;
 use App\User;
 use Carbon\Carbon;
@@ -55,15 +55,14 @@ class SummaryController extends Controller
             return User::count();
         });
 
-        $count['new_category'] = Cache::remember('category.count_new', $expires, function () use ($start, $end) {
-            return Category::whereDate('created_at', '>=', $start->format('Y-m-d'))
-                ->whereDate('created_at', '<=', $end->format('Y-m-d'))
+        $count['new_search'] = Cache::remember('search.count_new', $expires, function () use ($start, $end) {
+            return Search::where('created_at', '>=', $start->format('Y-m-d'))
+                ->where('created_at', '<=', $end->format('Y-m-d'))
                 ->count();
-
         });
 
-        $count['total_category'] = Cache::remember('category.count', $expires, function () use ($start, $end) {
-            return Category::count();
+        $count['total_search'] = Cache::remember('search.count', $expires, function () {
+            return Search::count();
         });
 
         $count['new_report'] = Cache::remember('report.count_new', $expires, function () use ($start, $end) {

@@ -50,11 +50,11 @@
 
       <div class="col-md-6 col-sm-12">
         <div class="jumbotron text-right">
-          <h2>{{ $number->format($count['new_category']) }}</h2>
-          <p>@lang('Bidang baru')</p>
+          <h2>{{ $number->format($count['new_search']) }}</h2>
+          <p>@lang('Kueri pencarian')</p>
           <hr>
-          <h4>{{ $number->format($count['total_category']) }}</h4>
-          <p>@lang('Total bidang')</p>
+          <h4>{{ $number->format($count['total_search']) }}</h4>
+          <p>@lang('Total pencarian')</p>
         </div>
       </div>
 
