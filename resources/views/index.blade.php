@@ -29,9 +29,6 @@
     <link id="theme-style" rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
     @stack('css')
-
-  @include('layouts.adsense.connect')
-
 </head>
 
 <body class="landing-page">

@@ -32,7 +32,9 @@
 
     @stack('css')
 
-  @include('layouts.adsense.connect')
+    @guest
+      @include('layouts.adsense.connect')
+    @endguest
 
 </head>
 
