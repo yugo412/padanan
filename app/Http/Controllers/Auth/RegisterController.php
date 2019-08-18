@@ -76,6 +76,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'twitter' => ['nullable', 'string', 'max:15', 'regex:/^[A-Za-z0-9_]{1,15}$/'],
         ]);
     }
 
@@ -92,6 +93,7 @@ class RegisterController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
+                'twitter' => $data['twitter'] ?? null,
             ]);
 
             $user->assignRole(Role::firstOrCreate(['name' => config('permission.role.default')]));

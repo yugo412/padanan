@@ -37,6 +37,25 @@
                     @enderror
                   </div>
 
+                  <div class="form-group">
+                    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+
+                  </div>
+
+                  <div class="form-group">
+                    <label for="twitter">@lang('Akun Twitter')</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                      </div>
+                      <input type="text" name="twitter" class="form-control"
+                             placeholder="{{ str_replace('@', null, config('twitter.username')) }}">
+                    </div>
+                    @error('twitter')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                  </div>
+
                   <div class="form-group row">
                     <div class="col-md-6">
                       <label for="email">@lang('Sandilewat')</label>
