@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Contact;
 use App\Models\Like;
 use App\Models\Report;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -59,5 +60,13 @@ class User extends Authenticatable
     public function reports(): HasMany
     {
         return $this->hasMany(Report::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contact::class);
     }
 }

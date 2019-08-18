@@ -29,7 +29,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="email">@lang('Sandilewat')</label>
+                    <label for="password">@lang('Sandilewat')</label>
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
                     @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>

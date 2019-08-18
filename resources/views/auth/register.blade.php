@@ -37,9 +37,21 @@
                     @enderror
                   </div>
 
-                  <div class="form-group">
-                    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <label for="password">@lang('Sandilewat')</label>
+                      <input type="password" name="password"
+                             class="form-control @error('password') is-invalid @enderror">
+                      @error('password')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
 
+                    <div class="col-md-6">
+                      <label for="password_confirmation">@lang('Konfirmasi sandilewat')</label>
+                      <input type="password" name="password_confirmation"
+                             class="form-control @error('password') is-invalid @enderror">
+                    </div>
                   </div>
 
                   <div class="form-group">
@@ -54,21 +66,6 @@
                     @error('twitter')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                  </div>
-
-                  <div class="form-group row">
-                    <div class="col-md-6">
-                      <label for="email">@lang('Sandilewat')</label>
-                      <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
-                      @error('password')
-                      <div class="invalid-feedback">{{ $message }}</div>
-                      @enderror
-                    </div>
-
-                    <div class="col-md-6">
-                      <label for="email">@lang('Konfirmasi sandilewat')</label>
-                      <input type="password" name="password_confirmation" class="form-control @error('password') is-invalid @enderror">
-                    </div>
                   </div>
 
                   <div class="form-group">

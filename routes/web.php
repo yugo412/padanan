@@ -15,6 +15,9 @@ Route::any('/', 'IndexController')->name('index');
 Route::get('sitemap.xml', 'SitemapController@index')->name('sitemap');
 Route::get('sitemap-{category}.xml', 'SitemapController@word')->name('sitemap.word');
 
+Route::get('kontak', 'ContactController@form')->name('contact');
+Route::post('kontak', 'ContactController@store');
+
 Auth::routes();
 Route::group(['namespace' => 'Auth'], function (){
    Route::get('masuk', 'LoginController@showLoginForm')->name('login');

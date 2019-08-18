@@ -62,7 +62,10 @@
             <div class="intro">
               <p>@lang('Mulai dengan mencari istilah asing maupun istilah dalam bahasa Indonesia. Istilah yang sama bisa memiliki padanan yang berbeda untuk kategori yang berbeda.')</p>
               <div class="cta-container">
-                <a class="btn btn-primary btn-cta" href="{{ route('about') }}"><i class="fa fa-question-circle-o fa-fw"></i> @lang('Tentang kami')</a>
+                <a class="btn btn-primary btn-cta" href="{{ route('about') }}"><i
+                    class="fa fa-question-circle fa-fw"></i> @lang('Tentang kami')</a>
+                <a class="btn btn-primary btn-cta" href="{{ route('contact') }}"><i
+                    class="fa fa-at fa-fw"></i> @lang('Kontak pengembang')</a>
               </div>
 
             </div><!--//intro-->
