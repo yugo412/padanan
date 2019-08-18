@@ -36,6 +36,7 @@ class ContactMail extends Mailable
     {
         return $this->markdown('mail.contact')
             ->replyTo($this->contact->email)
+            ->cc(config('mail.developer'))
             ->subject(__('Pesan baru dari :name untuk :app', [
                 'name' => $this->contact->name,
                 'app' => config('app.name'),
