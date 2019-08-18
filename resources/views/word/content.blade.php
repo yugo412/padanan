@@ -1,6 +1,6 @@
 <section id="{{ $word->slug }}" class="doc-section">
   @if (isset($index) and ($index % 5 == 0 and $index != 0))
-    <div class="jumbotron">
+    <div class="mb-5">
       @include('layouts.adsense.responsive')
     </div>
   @endif
