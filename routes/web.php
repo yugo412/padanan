@@ -12,6 +12,8 @@
 */
 
 Route::any('/', 'IndexController')->name('index');
+Route::get('sitemap.xml', 'SitemapController@index')->name('sitemap');
+Route::get('sitemap-{category}.xml', 'SitemapController@word')->name('sitemap.word');
 
 Auth::routes();
 Route::group(['namespace' => 'Auth'], function (){
