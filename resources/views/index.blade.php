@@ -65,7 +65,7 @@
                 <a class="btn btn-primary btn-cta" href="{{ route('about') }}"><i
                     class="fa fa-question-circle fa-fw"></i> @lang('Tentang kami')</a>
                 <a class="btn btn-primary btn-cta" href="{{ route('contact') }}"><i
-                    class="fa fa-at fa-fw"></i> @lang('Kontak pengembang')</a>
+                    class="fa fa-at fa-fw"></i> @lang('Kontak')</a>
               </div>
 
             </div><!--//intro-->
