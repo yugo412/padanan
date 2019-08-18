@@ -67,7 +67,18 @@
 
             </div><!--//intro-->
             <div id="cards-wrapper" class="cards-wrapper row">
-                @foreach ($categories as $category)
+              @foreach ($categories as $index => $category)
+
+                @if (Agent::isMobile())
+                  @if ($index % 5 == 0 AND $index != 0)
+                    <div class="item item-orange col-lg-4 col-md-6 col-12">
+                      <div class="item-inner">
+                        @include('layouts.adsense.responsive')
+                      </div>
+                    </div>
+                  @endif
+                @endif
+
                 <div class="item item-orange col-lg-4 col-md-6 col-12">
                   <div class="item-inner">
                     <div class="icon-holder">

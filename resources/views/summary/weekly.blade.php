@@ -8,7 +8,14 @@
 
 @section('content')
   <div class="container">
-    <div id="doc-header" class="doc-header text-center"></div><!--//doc-header-->
+
+    @if (Agent::isDesktop())
+      <div class="row">
+        <div class="col-md-12">
+          @include('layouts.adsense.responsive')
+        </div>
+      </div>
+    @endif
 
     <div class="doc-body row">
       <div class="doc-content col-12 order-1">
@@ -69,6 +76,14 @@
       </div>
 
     </div>
+
+    @guest
+      <div class="row mb-4">
+        <div class="col-md-12">
+          @include('layouts.adsense.responsive')
+        </div>
+      </div>
+    @endguest
 
     <div class="row">
       <div class="col-md-12">

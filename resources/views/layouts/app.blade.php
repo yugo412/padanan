@@ -31,11 +31,6 @@
     <link id="theme-style" rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
     @stack('css')
-
-    @guest
-      @include('layouts.adsense.connect')
-    @endguest
-
 </head>
 
 <body class="body-orange">

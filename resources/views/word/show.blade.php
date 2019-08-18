@@ -38,7 +38,7 @@
 
           </section><!--//doc-section-->
 
-          <section>
+          <section class="adsense">
             @include('layouts.adsense.responsive')
           </section>
 

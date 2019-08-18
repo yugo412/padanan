@@ -30,7 +30,10 @@
               <li>@lang('Coba kata kunci yang lebih umum.')</li>
             </ul>
           @endif
-          @each('word.content', $words, 'word')
+
+          @foreach ($words as $index => $word)
+            @include('word.content', compact('word', 'index'))
+          @endforeach
         </div><!--//content-inner-->
 
         {{ $words->onEachSide(1)->links() }}

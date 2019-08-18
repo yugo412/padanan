@@ -17,7 +17,9 @@
     <div id="showcase" class="doc-body row">
       <div class="doc-content col-md-9 col-12 order-1">
         <div class="content-inner">
-          @each('word.content', $words, 'word')
+          @foreach ($words as $index => $word)
+            @include('word.content', compact('word', 'index'))
+          @endforeach
         </div><!--//content-inner-->
 
         {{ $words->onEachSide(1)->links() }}

@@ -1,4 +1,10 @@
 <section id="{{ $word->slug }}" class="doc-section">
+  @if (isset($index) and ($index % 5 == 0 and $index != 0))
+    <div class="jumbotron">
+      @include('layouts.adsense.responsive')
+    </div>
+  @endif
+
   <div class="jumbotron">
     <h2>
       {{ $word->origin }}
