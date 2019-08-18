@@ -1,6 +1,6 @@
-# Padanan (Glosarium)
+# Padanan (sebelumnya Glosarium)
 
-Glosarium adalah suatu daftar alfabetis istilah dalam suatu ranah pengetahuan tertentu yang dilengkapi dengan definisi untuk istilah-istilah tersebut. Biasanya glosarium ada di bagian akhir suatu buku dan menyertakan istilah-istilah dalam buku tersebut yang baru diperkenalkan atau paling tidak, tak umum ditemukan.
+Padanan adalah suatu daftar alfabetis istilah dalam suatu ranah pengetahuan tertentu yang dilengkapi dengan definisi untuk istilah-istilah tersebut. Biasanya glosarium ada di bagian akhir suatu buku dan menyertakan istilah-istilah dalam buku tersebut yang baru diperkenalkan atau paling tidak, tak umum ditemukan.
 
 Lihat aplikasi pada [Padanan](https://padanan.aplikasi.live).
 
@@ -22,7 +22,7 @@ Lihat aplikasi pada [Padanan](https://padanan.aplikasi.live).
 - SQLite atau PDO.
 
 ## Instalasi
-- Klon repositori [glosarium/glosarium](https://github.com/glosarium/glosarium) ke mesin lokal.
+- Klon repositori [arvernester/padanan](https://github.com/arvernester/padanan) ke mesin lokal.
 - Masuk ke direktori aplikasi dan perbarui librari dan kerangka kerja dengan perintah ```composer install``.
 - Salin berkas ```.env.example``` menjadi ```.env```. Ubah beberapa pengaturan di dalam berkas tersebut, termasuk berkas pengaturan pangkalan data.
 - Buat kunci enkripsi baru dengan perintah ```php artisan key:generate```.
@@ -32,9 +32,9 @@ Lihat aplikasi pada [Padanan](https://padanan.aplikasi.live).
 Terakhir, akses aplikasi web melalui peramban dengan tautan ```http://localhost:8000```.
 
 ## Kompilasi Aset (JS, CSS, LESS, SASS, dst)
-Secara bawaan, aplikasi web Glosarium didistribusikan dengan aset yang sudah terkompilasi. Namun, Anda dapat mengkompilasi ulang aset apabila ada perubahan, baik itu perubahan pada aset yang sudah ada, maupun perubahan dengan menambahkan paket librari baru.
+Secara bawaan, aplikasi web Padanan didistribusikan dengan aset yang sudah terkompilasi. Namun, Anda dapat mengkompilasi ulang aset apabila ada perubahan, baik itu perubahan pada aset yang sudah ada, maupun perubahan dengan menambahkan paket librari baru.
 
-Instal terlebih dahulu NodeJS dan NPM.
+Instal terlebih dahulu NodeJS dan NPM (atau Yarn).
 
 ```
 sudo apt install node npm
@@ -47,13 +47,17 @@ npm run dev
 
 // atau
 
-yarn run watch-poll
+yarn watch-poll
 ```
 
 Sebelum aset didistribusikan, aset harus dikompilasi ulang dalam bentuk aset produksi.
 
 ```
 npm run production
+
+// atau
+
+yarn production
 ```
 
 ## Pengembang
