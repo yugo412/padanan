@@ -75,9 +75,7 @@
                 @if (Agent::isMobile())
                   @if ($index % 5 == 0 AND $index != 0)
                     <div class="item item-orange col-lg-4 col-md-6 col-12">
-                      <div class="item-inner">
-                        @include('layouts.adsense.responsive')
-                      </div>
+                      @include('layouts.adsense.responsive')
                     </div>
                   @endif
                 @endif
