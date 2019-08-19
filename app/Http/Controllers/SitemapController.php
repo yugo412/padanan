@@ -19,6 +19,8 @@ class SitemapController extends Controller
         $sitemap->setCache('sitemap.index', 3600 * 24);
 
         $categories = Category::orderBy('name')
+            ->whereHas('words')
+            ->whereIsPublished(true)
             ->get();
 
         foreach ($categories as $category) {
@@ -37,6 +39,7 @@ class SitemapController extends Controller
     public function word(Category $category)
     {
         $words = Word::whereCategoryId($category->id)
+            ->orderByDesc('total_likes')
             ->orderBy('origin')
             ->orderBy('locale')
             ->get();
