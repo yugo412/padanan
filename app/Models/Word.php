@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Word extends Model
 {
     use Sluggable;
+    use SoftDeletes;
 
     /**
      * @var array
@@ -30,6 +32,13 @@ class Word extends Model
         'locale',
         'source',
         'total_likes',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'deleted_at' => 'datetime',
     ];
 
     /**

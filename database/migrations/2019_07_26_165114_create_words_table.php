@@ -23,6 +23,7 @@ class CreateWordsTable extends Migration
             $table->string('source', 300)->nullable();
             $table->integer('total_likes')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')
                 ->references('id')
