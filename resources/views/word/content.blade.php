@@ -15,12 +15,13 @@
     <hr>
 
     @php
-      $tweet = __('Padanan istilah :origin (:category) adalah :locale.:line:link', [
+      $tweet = __(':twitter Padanan istilah :origin (:category) adalah :locale.:line:link', [
         'origin' => $word->origin,
         'locale' => $word->locale,
         'category' => strtolower($word->category->name),
         'line' => str_repeat(PHP_EOL, 2),
         'link' => route('word.show', $word),
+        'twitter' => config('twitter.username'),
       ]);
     @endphp
 
