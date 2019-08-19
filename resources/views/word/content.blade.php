@@ -9,7 +9,8 @@
     <h2>
       {{ $word->origin }}
       <br>
-      <small><a href="{{ route('word.category', $word->category) }}">{{ $word->category->name }}</a></small>
+      <small><a href="{{ route('word.category', $word->category) }}"
+                title="@lang('Bidang :category', ['category' => $word->category->name])">{{ $word->category->name }}</a></small>
     </h2>
     <h2>{{ $word->locale }}</h2>
     <hr>
@@ -25,10 +26,7 @@
     @endphp
 
     <div class="mt-4">
-      <a
-        href="https://twitter.com/intent/tweet?via={{ str_replace('@', '', config('twitter.username')) }}&hashtags=padanan,glosarium&text={{ urlencode($tweet) }}"
-        class="btn btn-outline-info btn-sm text-info" target="_blank"><i class="fab fa-twitter"></i> @lang('Bagikan')
-      </a>
+      @include('layouts.partials.tweet', compact('tweet', 'word'))
       <loveable link="{{ route('word.love', $word) }}" count="{{ $word->total_likes }}"></loveable>
       <reportable link="{{ route('word.report', $word) }}" total="{{ $word->reports_count }}" auth="{{ auth()->check() }}"></reportable>
     </div>

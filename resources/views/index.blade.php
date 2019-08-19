@@ -88,7 +88,8 @@
                     <h3 class="title">{{ $category->name }}</h3>
                     <p class="intro">@lang(':count istilah', ['count' => $number->format($category->words_count)])</p>
                     <p class="intro">{{ \Illuminate\Support\Str::substr($category->description, 0, 100) }}</p>
-                    <a class="link" href="{{ route('word.category', $category) }}"></a>
+                    <a class="link" href="{{ route('word.category', $category) }}"
+                       title="@lang('Bidang :category', ['category' => $category->name])"></a>
                   </div>
                 </div>
               @endforeach
