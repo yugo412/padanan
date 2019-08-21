@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Twitter;
 
 use App\Facades\Twitter;
+use App\Models\Tweet;
 use App\Models\Word;
 use Illuminate\Console\Command;
 
@@ -40,6 +41,10 @@ class PostWordCommand extends Command
     public function handle()
     {
         $word = Word::inRandomOrder()
+            ->whereNotIn('id', function ($query) {
+                return $query->select('word_id')->from(with(new Tweet)->getTable());
+            })
+            ->take(1)
             ->first();
 
         if (!empty($word)) {
@@ -63,7 +68,11 @@ class PostWordCommand extends Command
                 __('Kalau dalam bahasa asing disebut :origin, maka dalam bahasa Indonesia disebut :locale. Istilah ini umum ada pada bidang :category. #padanan #glosarium', $replaces),
             ];
 
-            Twitter::send(collect($templates)->random());
+            $tweet = Twitter::send(collect($templates)->random());
+
+            Tweet::firstOrNew(['word_id' => $word->id])
+                ->fill(['metadata' => $tweet])
+                ->save();
         }
     }
 }
