@@ -19,17 +19,17 @@
         <div class="content-inner">
           <section id="license" class="doc-section">
             <h2 class="section-title">
-              @if (!empty($word->category['icon']))
-                <i class="fa fa-{{ $worc->category['icon'] }} fa-fw text-info"></i>
+              @if (!empty($term->category['icon']))
+                <i class="fa fa-{{ $term->category['icon'] }} fa-fw text-info"></i>
               @endif
-              {{ $word->category->name }}
+              {{ $term->category->name }}
             </h2>
             <div class="section-block">
 
               <div class="jumbotron text-left">
-                <h2>{{ $word->origin }}</h2>
+                <h2>{{ $term->origin }}</h2>
                 <hr>
-                <h2>{{ $word->locale }}</h2>
+                <h2>{{ $term->locale }}</h2>
               </div>
 
               <h3>@lang('Deskripsi')</h3>
@@ -37,17 +37,17 @@
 
               @php
                 $tweet = __('Padanan istilah :origin (:category) adalah :locale.:line:link', [
-                  'origin' => $word->origin,
-                  'locale' => $word->locale,
-                  'category' => strtolower($word->category->name),
+                  'origin' => $term->origin,
+                  'locale' => $term->locale,
+                  'category' => strtolower($term->category->name),
                   'line' => str_repeat(PHP_EOL, 2),
-                  'link' => route('word.show', $word),
+                  'link' => route('term.show', $term),
                 ]);
               @endphp
 
-              @include('layouts.partials.tweet', compact('tweet', 'word'))
-              <loveable link="{{ route('word.love', $word) }}" count="{{ $word->total_likes }}"></loveable>
-              <reportable link="{{ route('word.report', $word) }}" total="{{ $word->reports_count }}"
+              @include('layouts.partials.tweet', compact('tweet', 'term'))
+              <loveable link="{{ route('term.love', $term) }}" count="{{ $term->total_likes }}"></loveable>
+              <reportable link="{{ route('term.report', $term) }}" total="{{ $term->reports_count }}"
                           auth="{{ auth()->check() }}"></reportable>
             </div>
 
@@ -55,7 +55,7 @@
 
           @include('layouts.partials.disqus', [
             'url' => url()->current(),
-            'slug' => $word->slug,
+            'slug' => $term->slug,
           ])
 
         </div><!--//content-inner-->

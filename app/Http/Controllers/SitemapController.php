@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Support\Facades\App;
 
 class SitemapController extends Controller
@@ -19,12 +19,12 @@ class SitemapController extends Controller
         $sitemap->setCache('sitemap.index', 3600 * 24);
 
         $categories = Category::orderBy('name')
-            ->whereHas('words')
+            ->whereHas('terms')
             ->whereIsPublished(true)
             ->get();
 
         foreach ($categories as $category) {
-            $sitemap->addSitemap(route('sitemap.word', $category), $category->updated_at);
+            $sitemap->addSitemap(route('sitemap.term', $category), $category->updated_at);
         }
 
         return $sitemap->render('sitemapindex');
@@ -36,19 +36,19 @@ class SitemapController extends Controller
      * @param Category $category
      * @return mixed
      */
-    public function word(Category $category)
+    public function term(Category $category)
     {
-        $words = Word::whereCategoryId($category->id)
+        $terms = Term::whereCategoryId($category->id)
             ->orderByDesc('total_likes')
             ->orderBy('origin')
             ->orderBy('locale')
             ->get();
 
         $sitemap = App::make('sitemap');
-        $sitemap->setCache('sitemap.word.' . $category->slug, 3600 * 24);
+        $sitemap->setCache('sitemap.term.' . $category->slug, 3600 * 24);
 
-        foreach ($words as $word) {
-            $sitemap->add(route('word.show', $word), $word->updated_at);
+        foreach ($terms as $term) {
+            $sitemap->add(route('term.show', $term), $term->updated_at);
         }
 
         return $sitemap->render('xml');

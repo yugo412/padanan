@@ -17,16 +17,16 @@
     <div id="showcase" class="doc-body row">
       <div class="doc-content col-md-9 col-12 order-1">
         <div class="content-inner">
-          @each('word.content', $words, 'word')
+          @each('term.content', $terms, 'term')
         </div>
 
-        {{ $words->links() }}
+        {{ $terms->links() }}
       </div><!--//doc-content-->
       <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
         <div id="doc-nav" class="doc-nav">
           <nav id="doc-menu" class="nav doc-menu flex-column sticky">
             @foreach ($categories as $category)
-              <a class="nav-link" href="{{ route('word.category', $category) }}">{{ $category->name }}</a>
+              <a class="nav-link" href="{{ route('term.category', $category) }}">{{ $category->name }}</a>
             @endforeach
           </nav>
         </div>

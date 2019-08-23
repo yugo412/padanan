@@ -33,7 +33,7 @@
               @endif
 
               <div class="jumbotron text-left">
-                <form action="{{ route('word.create') }}" method="post">
+                <form action="{{ route('term.create') }}" method="post">
                   @csrf
 
                   <div class="form-group">

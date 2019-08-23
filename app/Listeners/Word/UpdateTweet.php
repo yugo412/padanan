@@ -4,7 +4,7 @@ namespace App\Listeners\Word;
 
 use App\Events\Word\StoredEvent;
 use App\Facades\Twitter;
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Auth;
@@ -30,9 +30,9 @@ class UpdateTweet
     public function handle(StoredEvent $event)
     {
         $replaces = [
-            'origin' =>  $event->word->origin,
-            'locale' => $event->word->locale,
-            'category' => strtolower($event->word->category->name),
+            'origin' => $event->term->origin,
+            'locale' => $event->term->locale,
+            'category' => strtolower($event->term->category->name),
             'user' => data_get(Auth::user(), 'name', __('Anonim')),
             'line' => str_repeat(PHP_EOL, 2),
         ];

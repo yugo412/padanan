@@ -56,8 +56,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ !request()->routeIs('word.create') ?: 'active' }}">
-                  <a class="nav-link" href="{{ route('word.create') }}">@lang('Tambah Istilah')</a>
+                <li class="nav-item {{ !request()->routeIs('term.create') ?: 'active' }}">
+                  <a class="nav-link" href="{{ route('term.create') }}">@lang('Tambah Istilah')</a>
                 </li>
 
                 <li class="nav-item {{ !request()->routeIs('summary.weekly') ?: 'active' }}">
@@ -90,12 +90,13 @@
           </nav>
 
             <div class="top-search-box">
-              <form class="form-inline search-form justify-content-center" action="{{ route('word.search') }}" method="get">
+              <form class="form-inline search-form justify-content-center" action="{{ route('term.search') }}"
+                    method="get">
                 @if (request('kategori'))
                 <input type="hidden" name="kategori" value="{{ request('kategori') }}">
                 @endif
 
-                @if (!empty($category) and request()->routeIs('word.category'))
+                @if (!empty($category) and request()->routeIs('term.category'))
                   <input type="hidden" name="kategori" value="{{ $category->slug }}">
                   <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari istilah dalam bidang :category...', ['category' => strtolower($category->name)])" name="katakunci" class="form-control search-input" autocomplete="off">
                 @else

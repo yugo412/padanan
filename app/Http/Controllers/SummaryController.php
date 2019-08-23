@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Models\Search;
-use App\Models\Word;
+use App\Models\Term;
 use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -25,7 +25,7 @@ class SummaryController extends Controller
             'sub' => ['nullable', 'integer'],
         ]);
 
-        $expires = CarbonImmutable::now()->addHour();
+        $expires = app()->environment('locale') ? CarbonImmutable::now()->addSecond() : CarbonImmutable::now()->addHour();
 
         $start = Carbon::now()->locale('id_ID')->subDay(now()->format('w'));
         $end = $start->copy()->addWeek();
@@ -36,13 +36,13 @@ class SummaryController extends Controller
         }
 
         $count['new_word'] = Cache::remember('word.count_new', $expires, function () use ($start, $end) {
-            return Word::whereDate('created_at', '>=', $start->format('Y-m-d'))
+            return Term::whereDate('created_at', '>=', $start->format('Y-m-d'))
                 ->whereDate('created_at', '<=', $end->format('Y-m-d'))
                 ->count();
         });
 
         $count['total_word'] = Cache::remember('word.count', $expires, function () use ($start, $end) {
-            return Word::count();
+            return Term::count();
         });
 
         $count['new_user'] = Cache::remember('user.count_new', $expires, function () use ($start, $end) {
@@ -75,7 +75,7 @@ class SummaryController extends Controller
             return Report::count();
         });
 
-        $words = Word::orderByDesc('created_at')
+        $terms = Term::orderByDesc('created_at')
             ->where('created_at', '>=', $start->format('Y-m-d'))
             ->where('created_at', '<=', $end->format('Y-m-d'))
             ->get();
@@ -83,7 +83,7 @@ class SummaryController extends Controller
         $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
 
         return view('summary.weekly', compact('count', 'number', 'start', 'end'))
-            ->with('words', $words)
+            ->with('terms', $terms)
             ->with('title', __('Ringkasan Mingguan (:day_start :week_start - :day_end :week_end)', [
                 'day_start' => $start->format('d'),
                 'week_start' => $start->monthName,

@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Twitter;
 
 use App\Facades\Twitter;
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Console\Command;
 
 class SummaryCommand extends Command
@@ -39,10 +39,10 @@ class SummaryCommand extends Command
      */
     public function handle()
     {
-        $wordCount = Word::count();
+        $termCount = Term::count();
 
         $lastWeek = now()->subWeek();
-        $newWordCount = Word::whereDate('created_at', '>=', $lastWeek->format('Y-m-d'))
+        $newTermCount = Term::whereDate('created_at', '>=', $lastWeek->format('Y-m-d'))
             ->count();
 
         $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
@@ -51,10 +51,10 @@ class SummaryCommand extends Command
 
         $link = route('summary.weekly', ['sub' => 1]);
 
-        if ($newWordCount >= 1) {
+        if ($newTermCount >= 1) {
             $template = __(':newCount padanan baru berhasil ditambahkan minggu lalu. Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor. 🤗:line:link', [
-                'newCount' => $number->format($newWordCount),
-                'count' => $number->format($wordCount),
+                'newCount' => $number->format($newTermCount),
+                'count' => $number->format($termCount),
                 'app' => config('app.name'),
                 'line' => $line,
                 'link' => $link,
@@ -62,7 +62,7 @@ class SummaryCommand extends Command
         }
         else {
             $template = __('Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor.🤗 :line:link🤗', [
-                'count' => $number->format($wordCount),
+                'count' => $number->format($termCount),
                 'app' => config('app.name'),
                 'line' => $line,
                 'link' => $link,

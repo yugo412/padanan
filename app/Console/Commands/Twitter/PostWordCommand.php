@@ -3,8 +3,8 @@
 namespace App\Console\Commands\Twitter;
 
 use App\Facades\Twitter;
+use App\Models\Term;
 use App\Models\Tweet;
-use App\Models\Word;
 use Illuminate\Console\Command;
 
 class PostWordCommand extends Command
@@ -40,18 +40,18 @@ class PostWordCommand extends Command
      */
     public function handle()
     {
-        $word = Word::inRandomOrder()
+        $term = Term::inRandomOrder()
             ->whereNotIn('id', function ($query) {
                 return $query->select('word_id')->from(with(new Tweet)->getTable());
             })
             ->take(1)
             ->first();
 
-        if (!empty($word)) {
+        if (!empty($term)) {
             $replaces = [
-                'origin' => $word->origin,
-                'locale' => $word->locale,
-                'category' => strtolower($word->category->name),
+                'origin' => $term->origin,
+                'locale' => $term->locale,
+                'category' => strtolower($term->category->name),
                 'line' => str_repeat(PHP_EOL, 2),
             ];
 
@@ -70,7 +70,7 @@ class PostWordCommand extends Command
 
             $tweet = Twitter::send(collect($templates)->random());
 
-            Tweet::firstOrNew(['word_id' => $word->id])
+            Tweet::firstOrNew(['word_id' => $term->id])
                 ->fill(['metadata' => $tweet])
                 ->save();
         }
