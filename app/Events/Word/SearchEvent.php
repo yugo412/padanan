@@ -2,7 +2,7 @@
 
 namespace App\Events\Word;
 
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -21,7 +21,7 @@ class SearchEvent
     public $keyword;
 
     /**
-     * @var Word
+     * @var Term
      */
     public $words;
 

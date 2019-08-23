@@ -11,7 +11,8 @@
     @if (request('katakunci'))
     <div id="doc-header" class="doc-header text-center">
       <h1 class="doc-title"><span aria-hidden="true" class="icon icon_search-2"></span> {{ request('katakunci') }}</h1>
-      <div class="meta">@lang('ditemukan :count hasil pencarian untuk katakunci tersebut', ['count' => $words->total()])</div>
+      <div
+        class="meta">@lang('ditemukan :count hasil pencarian untuk katakunci tersebut', ['count' => $terms->total()])</div>
       <hr>
     </div>
     @endif
@@ -20,7 +21,7 @@
       <div class="doc-content col-md-9 col-12 order-1">
 
         <div class="content-inner">
-          @if ($words->total() == 0)
+          @if ($terms->total() == 0)
             <p>@lang('Penelusuran Anda - <strong>:keyword</strong> - tidak cocok dengan dokumen apa pun.', ['keyword' => request('katakunci')])</p>
             <p>@lang('Saran:')</p>
             <ul>
@@ -31,18 +32,19 @@
             </ul>
           @endif
 
-          @foreach ($words as $index => $word)
-            @include('word.content', compact('word', 'index'))
+          @foreach ($terms as $index => $term)
+            @include('term.content', compact('term', 'index'))
           @endforeach
         </div><!--//content-inner-->
 
-        {{ $words->onEachSide(1)->links() }}
+        {{ $terms->onEachSide(1)->links() }}
       </div><!--//doc-content-->
       <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
         <div id="doc-nav" class="doc-nav">
           <nav id="doc-menu" class="nav doc-menu flex-column sticky">
-            @foreach ($words as $word)
-            <a class="nav-link scrollto" href="#{{ $word->slug }}">{{ $word->origin }} ({{ strtolower($word->category->name) }})</a>
+            @foreach ($terms as $term)
+              <a class="nav-link scrollto" href="#{{ $term->slug }}">{{ $term->origin }} ({{
+                strtolower($term->category->name) }})</a>
             @endforeach
           </nav><!--//doc-menu-->
         </div>

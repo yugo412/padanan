@@ -25,8 +25,8 @@ class Tweet extends Model
     /**
      * @return BelongsTo
      */
-    public function word(): BelongsTo
+    public function term(): BelongsTo
     {
-        return $this->belongsTo(Word::class);
+        return $this->belongsTo(Term::class);
     }
 }

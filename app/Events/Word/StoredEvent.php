@@ -2,7 +2,7 @@
 
 namespace App\Events\Word;
 
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -16,17 +16,17 @@ class StoredEvent
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * @var Word
+     * @var Term
      */
-    public $word;
+    public $term;
 
     /**
      * StoredEvent constructor.
-     * @param Word $word
+     * @param Term $term
      */
-    public function __construct(Word $word)
+    public function __construct(Term $term)
     {
-        $this->word = $word;
+        $this->term = $term;
     }
 
     /**

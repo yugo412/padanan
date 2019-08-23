@@ -58,8 +58,8 @@ class Category extends Model implements HasMedia
     /**
      * @return HasMany
      */
-    public function words(): HasMany
+    public function terms(): HasMany
     {
-        return $this->hasMany(Word::class);
+        return $this->hasMany(Term::class);
     }
 }

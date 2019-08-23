@@ -13,7 +13,7 @@
 
 Route::any('/', 'IndexController')->name('index');
 Route::get('sitemap.xml', 'SitemapController@index')->name('sitemap');
-Route::get('sitemap-{category}.xml', 'SitemapController@word')->name('sitemap.word');
+Route::get('sitemap-{category}.xml', 'SitemapController@term')->name('sitemap.term');
 
 Route::get('kontak', 'ContactController@form')->name('contact');
 Route::post('kontak', 'ContactController@store');
@@ -31,18 +31,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tentang', 'AboutController')->name('about');
 
-Route::get('/cari', 'WordController@search')->name('word.search');
-Route::get('/tambah', 'WordController@create')->name('word.create');
-Route::post('/tambah', 'WordController@store');
-Route::get('/kata', 'WordController@index')->name('word.index');
+Route::get('/cari', 'TermController@search')->name('term.search');
+Route::get('/tambah', 'TermController@create')->name('term.create');
+Route::post('/tambah', 'TermController@store');
+Route::get('/istilah', 'TermController@index')->name('term.index');
 
-Route::get('/kategori', 'CategoryController@index')->name('category.index');
+Route::get('/bidang', 'CategoryController@index')->name('category.index');
 
 Route::get('/ringkasan-mingguan', 'SummaryController@weekly')->name('summary.weekly');
 
-Route::post('/{word}/suka', 'WordController@love')->name('word.love');
-Route::post('/{word}/lapor', 'WordController@report')
-    ->name('word.report')
+Route::post('/{term}/suka', 'TermController@love')->name('term.love');
+Route::post('/{term}/lapor', 'TermController@report')
+    ->name('term.report')
     ->middleware('auth');
-Route::get('/bidang/{category}', 'WordController@category')->name('word.category');
-Route::get('/{word}', 'WordController@show')->name('word.show');
+Route::get('/bidang/{category}', 'TermController@category')->name('term.category');
+Route::get('/{term}', 'TermController@show')->name('term.show');

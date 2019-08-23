@@ -87,7 +87,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h3>@lang('Istilah Baru (:count)', ['count' => $number->format($words->count())])</h3>
+        <h3>@lang('Istilah Baru (:count)', ['count' => $number->format($terms->count())])</h3>
         <table class="table">
           <thead>
           <tr>
@@ -98,12 +98,12 @@
           </thead>
 
           <tbody>
-          @foreach($words as $word)
+          @foreach($terms as $term)
             <tr>
-              <td><a href="{{ route('word.show', $word) }}">{{ $word->origin }}</a></td>
-              <td>{{ $word->locale }}</td>
-              <td><a href="{{ route('word.category', $word->category) }}"
-                     title="{{ $word->category->name }}">{{ $word->category->name }}</a></td>
+              <td><a href="{{ route('term.show', $term) }}">{{ $term->origin }}</a></td>
+              <td>{{ $term->locale }}</td>
+              <td><a href="{{ route('term.category', $term->category) }}"
+                     title="{{ $term->category->name }}">{{ $term->category->name }}</a></td>
             </tr>
           @endforeach
           </tbody>

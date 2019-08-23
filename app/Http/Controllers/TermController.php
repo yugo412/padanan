@@ -9,7 +9,7 @@ use App\Http\Requests\Word\StoreRequest;
 use App\Models\Category;
 use App\Models\Like;
 use App\Models\Report;
-use App\Models\Word;
+use App\Models\Term;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
-class WordController extends Controller
+class TermController extends Controller
 {
     /**
      * @param Request $request
@@ -30,7 +30,7 @@ class WordController extends Controller
             'katakunci' => ['nullable', 'string'],
         ]);
 
-        $words = Word::selectRaw('*, MATCH(origin, locale) AGAINST (\''.$request->katakunci.'\' IN BOOLEAN MODE) as score')
+        $terms = Term::selectRaw('*, MATCH(origin, locale) AGAINST (\'' . $request->katakunci . '\' IN BOOLEAN MODE) as score')
             ->where(function ($query) use ($request){
                 return $query->search($request->katakunci ?? '');
             })
@@ -41,17 +41,16 @@ class WordController extends Controller
             })
             ->orderByDesc('score')
             ->orderByRaw('LENGTH(origin) ASC')
-//            ->withCount('likes')
             ->withCount('reports')
             ->paginate(25);
-        $words->appends($request->all());
+        $terms->appends($request->all());
 
-        // fire word search event
+        // fire term search event
         if (!empty($request->katakunci)) {
-            event(new SearchEvent($request->katakunci, $words));
+            event(new SearchEvent($request->katakunci, $terms));
         }
 
-        return \view('word.search', compact('words'))
+        return \view('term.search', compact('terms'))
             ->with('title', $request->katakunci)
             ->with('description', __('Pencarian untuk padanan kata ":origin"', [
                 'origin' => $request->katakunci,
@@ -65,16 +64,17 @@ class WordController extends Controller
      */
     public function category(Request $request, Category $category): View
     {
-        $words = Word::where('category_id', $category->id)
+        $terms = Term::where('category_id', $category->id)
             ->orderBy('origin')
+            ->orderBy('locale')
             ->withCount('reports')
             ->paginate();
-        $words->appends($request->all());
+        $terms->appends($request->all());
 
         $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
-        $total = $number->format($words->total());
+        $total = $number->format($terms->total());
 
-        return \view('word.category', compact('words', 'category', 'total'))
+        return \view('term.category', compact('terms', 'category', 'total'))
             ->with('title', __('Padanan dalam bidang :category', ['category' => $category->name]))
             ->with('description', $category->description);
     }
@@ -88,16 +88,16 @@ class WordController extends Controller
         $categories = Category::orderBy('name')
             ->get();
 
-        $words = Word::orderBy('origin')
+        $terms = Term::orderBy('origin')
             ->paginate();
-        $words->appends($request->all());
+        $terms->appends($request->all());
 
         $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
 
-        return \view('word.index', compact('categories', 'words'))
-            ->with('title', __('Daftar lengkap padanan kata dalam berbagai bidang'))
-            ->with('description', __('Cari :count padanan kata asing dalam :count_category bidang dalam bahasa Indonesia', [
-                'count' => $number->format($words->total()),
+        return \view('term.index', compact('categories', 'terms'))
+            ->with('title', __('Daftar lengkap padanan istilah dalam berbagai bidang'))
+            ->with('description', __('Cari :count padanan istilah asing dalam :count_category bidang dalam bahasa Indonesia', [
+                'count' => $number->format($terms->total()),
                 'count_category' => $number->format($categories->count()),
             ]));
     }
@@ -107,7 +107,7 @@ class WordController extends Controller
      */
     public function create(): View
     {
-        $categories = Cache::remember('category.word.index', now()->addDay(), function (){
+        $categories = Cache::remember('category.term.index', now()->addDay(), function () {
             return Category::orderBy('name')
                 ->whereIsPublished(true)
                 ->get();
@@ -117,7 +117,7 @@ class WordController extends Controller
             return Category::whereIsDefault(true)->first();
         });
 
-        return \view('word.create', compact('categories', 'category'))
+        return \view('term.create', compact('categories', 'category'))
             ->with('title', __('Tambah Istilah'))
             ->with('description', __('Tambah istilah bahasa asing dan padanan dalam bahasa Indonesia untuk memperkaya kosakata'));
     }
@@ -139,33 +139,33 @@ class WordController extends Controller
             'category_id' => $category->id,
         ]);
 
-        $word = Word::create($request->all());
+        $term = Term::create($request->all());
 
         if (Auth::check() and $request->has('tweet')) {
-            event(new StoredEvent($word));
+            event(new StoredEvent($term));
         }
 
-        return redirect()->route('word.create')
+        return redirect()->route('term.create')
             ->with('success', true);
     }
 
     /**
-     * @param Word $word
+     * @param Term $term
      * @return View
      */
-    public function show(Word $word): View
+    public function show(Term $term): View
     {
-        $word->loadCount('reports');
+        $term->loadCount('reports');
 
-        return \view('word.show', compact('word'))
+        return \view('term.show', compact('term'))
             ->with('title', __('Padanan istilah :origin adalah :locale', [
-                'origin' => $word->origin,
-                'locale' => $word->locale,
+                'origin' => $term->origin,
+                'locale' => $term->locale,
             ]))
             ->with('description', __('Padanan istilah :origin adalah :locale dalam bidang :category', [
-                'origin' => $word->origin,
-                'locale' => $word->locale,
-                'category' => strtolower($word->category->name),
+                'origin' => $term->origin,
+                'locale' => $term->locale,
+                'category' => strtolower($term->category->name),
             ]));
     }
 
@@ -204,40 +204,40 @@ class WordController extends Controller
     }
 
     /**
-     * @param Word $word
+     * @param Term $term
      * @return JsonResponse
      */
-    public function love(Word $word): JsonResponse
+    public function love(Term $term): JsonResponse
     {
-        $word->increment('total_likes');
-        $word->save();
+        $term->increment('total_likes');
+        $term->save();
 
         if (Auth::check()) {
-            $word->likes()->save(new Like([
+            $term->likes()->save(new Like([
                 'user_id' => Auth::id(),
                 'metadata' => [],
             ]));
         }
 
-        $word->loadCount('likes');
+        $term->loadCount('likes');
 
-        return response()->json($word);
+        return response()->json($term);
     }
 
     /**
      * @param ReportRequest $request
-     * @param Word $word
+     * @param Term $term
      * @return JsonResponse
      */
-    public function report(ReportRequest $request, Word $word): JsonResponse
+    public function report(ReportRequest $request, Term $term): JsonResponse
     {
-        $word->reports()->save(new Report([
+        $term->reports()->save(new Report([
             'user_id' => Auth::id(),
             'description' => $request->description,
         ]));
 
-        $word->loadCount('reports');
+        $term->loadCount('reports');
 
-        return response()->json($word);
+        return response()->json($term);
     }
 }

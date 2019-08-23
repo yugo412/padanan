@@ -48,7 +48,8 @@
             </div><!--//tagline-->
 
             <div class="main-search-box pt-3 pb-4 d-inline-block">
-                <form class="form-inline search-form justify-content-center" action="{{ route('word.search') }}" method="get">
+              <form class="form-inline search-form justify-content-center" action="{{ route('term.search') }}"
+                    method="get">
                     <input type="text" placeholder="@lang('Istilah dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
                     <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
                 </form>
@@ -86,9 +87,9 @@
                       <i class="icon fa fa-{{ $category->metadata['icon'] ?? 'list' }} fa-fw"></i>
                     </div><!--//icon-holder-->
                     <h3 class="title">{{ $category->name }}</h3>
-                    <p class="intro">@lang(':count istilah', ['count' => $number->format($category->words_count)])</p>
+                    <p class="intro">@lang(':count istilah', ['count' => $number->format($category->terms_count)])</p>
                     <p class="intro">{{ \Illuminate\Support\Str::substr($category->description, 0, 100) }}</p>
-                    <a class="link" href="{{ route('word.category', $category) }}"
+                    <a class="link" href="{{ route('term.category', $category) }}"
                        title="@lang('Bidang :category', ['category' => $category->name])"></a>
                   </div>
                 </div>

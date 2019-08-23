@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Contact;
 use App\Models\Like;
 use App\Models\Report;
+use App\Models\Term;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -68,5 +69,13 @@ class User extends Authenticatable
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function terms(): HasMany
+    {
+        return $this->hasMany(Term::class);
     }
 }

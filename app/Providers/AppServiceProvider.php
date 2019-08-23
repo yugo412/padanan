@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Relation::morphMap([
-            'word' => \App\Models\Word::class,
+            'term' => \App\Models\Term::class,
         ]);
     }
 }

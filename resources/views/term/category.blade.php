@@ -17,18 +17,18 @@
     <div id="showcase" class="doc-body row">
       <div class="doc-content col-md-9 col-12 order-1">
         <div class="content-inner">
-          @foreach ($words as $index => $word)
-            @include('word.content', compact('word', 'index'))
+          @foreach ($terms as $index => $term)
+            @include('term.content', compact('term', 'index'))
           @endforeach
         </div><!--//content-inner-->
 
-        {{ $words->onEachSide(1)->links() }}
+        {{ $terms->onEachSide(1)->links() }}
       </div><!--//doc-content-->
       <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
         <div id="doc-nav" class="doc-nav">
           <nav id="doc-menu" class="nav doc-menu flex-column sticky">
-            @foreach ($words as $word)
-            <a class="nav-link scrollto" href="#{{ $word->slug }}">{{ $word->origin }}</a>
+            @foreach ($terms as $term)
+              <a class="nav-link scrollto" href="#{{ $term->slug }}">{{ $term->origin }}</a>
             @endforeach
           </nav><!--//doc-menu-->
         </div>
