@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('stem', function () {
+    dd(\App\Facades\Sastrawi::stem('jangan-jangan dia sudah pergi untuk selamanya'));
+});
+
 Route::any('/', 'IndexController')->name('index');
 Route::get('sitemap.xml', 'SitemapController@index')->name('sitemap');
 Route::get('sitemap-{category}.xml', 'SitemapController@term')->name('sitemap.term');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTweetsTable extends Migration
+class CreateWordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateTweetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tweets', function (Blueprint $table) {
+        Schema::create('words', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('word_id');
+            $table->string('phrase', 100)->unique();
             $table->text('metadata');
             $table->timestamps();
-
-            $table->foreign('word_id')
-                ->references('id')
-                ->on('terms')
-                ->onDelete('cascade');
         });
     }
 
@@ -33,6 +28,6 @@ class CreateTweetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tweets');
+        Schema::dropIfExists('words');
     }
 }

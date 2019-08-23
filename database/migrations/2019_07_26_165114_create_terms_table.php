@@ -36,7 +36,7 @@ class CreateTermsTable extends Migration
                 ->onDelete('set null');
         });
 
-        \Illuminate\Support\Facades\DB::statement('ALTER TABLE words ADD FULLTEXT (`origin`, `locale`);');
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE terms ADD FULLTEXT (`origin`, `locale`);');
     }
 
     /**

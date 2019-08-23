@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Term\TermViewed;
 use App\Events\Word\SearchEvent;
 use App\Events\Word\StoredEvent;
 use App\Http\Requests\Word\ReportRequest;
@@ -156,6 +157,8 @@ class TermController extends Controller
     public function show(Term $term): View
     {
         $term->loadCount('reports');
+
+        event(new TermViewed($term));
 
         return \view('term.show', compact('term'))
             ->with('title', __('Padanan istilah :origin adalah :locale', [

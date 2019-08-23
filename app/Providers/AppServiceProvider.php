@@ -19,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
         App::bind('twitter', function (){
             return new \App\Services\Twitter;
         });
+
+        App::bind('sastrawi', function () {
+            return new \App\Services\Sastrawi;
+        });
     }
 
     /**

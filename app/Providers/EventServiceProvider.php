@@ -26,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Word\SearchEvent::class => [
             \App\Listeners\Search\RecordQuery::class,
         ],
+
+        \App\Events\Term\TermViewed::class => [
+            \App\Listeners\Term\TermDefinition::class,
+        ]
     ];
 
     /**
