@@ -49,7 +49,7 @@
                   </div>
 
                   <div class="form-group">
-                    <button class="btn btn-primary" type="submit">@lang('Masuk')</button>
+                    <button dusk="login-button" class="btn btn-primary" type="submit">@lang('Masuk')</button>
                   </div>
 
                 </form>

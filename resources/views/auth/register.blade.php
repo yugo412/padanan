@@ -69,7 +69,7 @@
                   </div>
 
                   <div class="form-group">
-                    <button class="btn btn-primary" type="submit">@lang('Daftar')</button>
+                    <button dusk="register-button" class="btn btn-primary" type="submit">@lang('Daftar')</button>
                   </div>
 
                 </form>

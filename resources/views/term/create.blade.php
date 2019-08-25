@@ -43,7 +43,9 @@
                         (@lang('default'): {{ $category->name }})
                       @endif
                     </label>
-                    <select name="category" class="form-control @error('category') is-invalid @enderror" id="category-select">
+                    <select name="category"
+                            class="select2-category form-control @error('category') is-invalid @enderror"
+                            id="category-select">
                       <option value=""></option>
                       @foreach ($categories as $category)
                         <option value="{{ $category->slug }}">{{ $category->name }}</option>
@@ -97,8 +99,8 @@
                     </div>
                   @endauth
 
-                  <div class="form-group">
-                    <button class="btn btn-primary" type="submit">@lang('Tambah')</button>
+                  <div class="form-group" id="action-buttons">
+                    <button dusk="submit-button" class="btn btn-primary" type="submit">@lang('Tambah')</button>
                   </div>
 
                 </form>
