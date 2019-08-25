@@ -16,7 +16,7 @@ class CreateWordsTable extends Migration
         Schema::create('words', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('phrase', 100)->unique();
-            $table->text('metadata');
+            $table->mediumText('metadata');
             $table->timestamps();
         });
     }
