@@ -13,13 +13,9 @@
     <div class="doc-body row">
       <div class="doc-content offset-lg-2 col-lg-8 col-12 order-1">
 
-        @if (isset($contact))
-          <h1>ada</h1>
-        @endif
-
-        @includeWhen(isset($contact), 'layouts.callouts.info', [
+        @includeWhen(session('contact'), 'layouts.callouts.info', [
           'message' => __('Halo :name, terima kasih telah mengirim pesan kepada pengembang. Kami akan meresponns pesan Anda dengan segera.', [
-            'name' => $contact->name ?? null,
+            'name' => session('contact.name') ?? null,
           ])
         ])
 
@@ -60,8 +56,8 @@
                     @enderror
                   </div>
 
-                  <div class="form-group">
-                    <button class="btn btn-primary" type="submit">@lang('Kirim')</button>
+                  <div class="form-group" id="action-buttons">
+                    <button dusk="send-button" class="btn btn-primary" type="submit">@lang('Kirim')</button>
                   </div>
 
                 </form>
