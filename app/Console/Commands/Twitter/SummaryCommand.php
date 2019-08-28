@@ -39,21 +39,25 @@ class SummaryCommand extends Command
      */
     public function handle()
     {
+        $locale = 'id_ID';
+
         $termCount = Term::count();
 
         $lastWeek = now()->subWeek();
         $newTermCount = Term::whereDate('created_at', '>=', $lastWeek->format('Y-m-d'))
             ->count();
 
-        $number = new \NumberFormatter('id_ID', \NumberFormatter::DECIMAL);
+        $number = new \NumberFormatter($locale, \NumberFormatter::DECIMAL);
+        $countable = new \NumberFormatter($locale, \NumberFormatter::CURRENCY_CODE);
 
         $line = str_repeat(PHP_EOL, 2);
 
         $link = route('summary.weekly', ['sub' => 1]);
 
         if ($newTermCount >= 1) {
-            $template = __(':newCount padanan baru berhasil ditambahkan minggu lalu. Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor. 🤗:line:link', [
-                'newCount' => $number->format($newTermCount),
+            $template = __(':Word_count (:new_count) istilah & padanan baru berhasil ditambahkan minggu lalu. Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor. 🤗:line:link', [
+                'word_count' => $countable->format($newTermCount),
+                'new_count' => $number->format($newTermCount),
                 'count' => $number->format($termCount),
                 'app' => config('app.name'),
                 'line' => $line,
@@ -61,7 +65,8 @@ class SummaryCommand extends Command
             ]);
         }
         else {
-            $template = __('Total :count istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor.🤗 :line:link🤗', [
+            $template = __(':Word_count (:count) istilah asing dan padanannya tersimpan di pangkalan data :app.:lineTerima kasih pengguna & kontributor.🤗 :line:link🤗', [
+                'word_count' => $countable->format($termCount),
                 'count' => $number->format($termCount),
                 'app' => config('app.name'),
                 'line' => $line,
