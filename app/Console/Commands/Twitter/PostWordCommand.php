@@ -44,6 +44,7 @@ class PostWordCommand extends Command
             ->whereNotIn('id', function ($query) {
                 return $query->select('word_id')->from(with(new Tweet)->getTable());
             })
+            ->whereRaw('origin != locale')
             ->take(1)
             ->first();
 
