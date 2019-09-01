@@ -64,7 +64,7 @@ class ReplyQuestionJob implements ShouldQueue
                     'username' => $this->tweet->user->screen_name,
                     'origin' => $term->origin,
                     'locale' => $term->locale,
-                    'link' => route('term.search', ['keyword' => $origin]),
+                    'link' => route('term.search', ['katakunci' => $origin]),
                     'line' => str_repeat(PHP_EOL, 2),
                 ];
 
