@@ -41,6 +41,21 @@ class Twitter
     }
 
     /**
+     * @param string $tweet
+     * @param array $options
+     * @return \stdClass
+     * @throws \DG\Twitter\Exception
+     */
+    public function reply(string $tweet, array $options = [])
+    {
+        abort_if(empty($options['tweet_id']), 500, __('You must provide tweet_id key from params'));
+
+        return $this->twitter->send($tweet, null, [
+            'in_reply_to_status_id' => $options['tweet_id'],
+        ]);
+    }
+
+    /**
      * @return Twitter
      */
     public function me(): self
@@ -61,11 +76,33 @@ class Twitter
     }
 
     /**
+     * @return Twitter
+     */
+    public function replies(): self
+    {
+        $this->loadMode = \DG\Twitter\Twitter::REPLIES;
+
+        return $this;
+    }
+
+    /**
      * @return array|\stdClass[]
      * @throws \DG\Twitter\Exception
      */
     public function load()
     {
         return $this->twitter->load($this->loadMode);
+    }
+
+    /**
+     * @param $query
+     * @return array|null
+     * @throws \DG\Twitter\Exception
+     */
+    public function search($query): ?array
+    {
+        $results = $this->twitter->request('search/tweets', 'GET', is_array($query) ? $query : ['q' => $query]);
+
+        return $results->statuses ?? null;
     }
 }
