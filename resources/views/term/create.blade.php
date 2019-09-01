@@ -20,7 +20,7 @@
             ])</h6>
             <div class="section-block">
 
-              @if(session('success'))
+              @if(session('term'))
               <div class="callout-block callout-info">
                 <div class="icon-holder">
                   <svg class="svg-inline--fa fa-info-circle fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path></svg><!-- <i class="fas fa-info-circle"></i> -->
@@ -28,6 +28,8 @@
                 <div class="content">
                   <h4 class="callout-title">@lang('Halo, :name!', ['name' => data_get(auth()->user(), 'name', 'orang asing')])</h4>
                   <p>@lang('Terima kasih telah menambahkan istilah di <strong>:app</strong>. Bantuan Anda sangat berarti buat perkembangan aplikasi.', ['app' => config('app.name')])</p>
+                  <hr>
+                  <a href="{{ route('term.show', session('term')) }}" class="alert-link">@lang('Lihat istilah')</a>
                 </div><!--//content-->
               </div>
               @endif
@@ -58,7 +60,8 @@
 
                   <div class="form-group">
                     <label for="origin">@lang('Kata asing')</label>
-                    <input type="text" name="origin" value="{{ old('origin') }}" class="form-control @error('origin') is-invalid @enderror" autocomplete="off">
+                    <input type="text" name="origin" value="{{ old('origin', request('istilah')) }}"
+                           class="form-control @error('origin') is-invalid @enderror" autocomplete="off">
                     @error('origin')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -66,7 +69,9 @@
 
                   <div class="form-group">
                     <label for="locale">@lang('Padanan kata (dalam bahasa Indonesia)')</label>
-                    <input type="text" name="locale" class="form-control @error('locale') is-invalid @enderror" autocomplete="off">
+                    <input type="text" name="locale" value="{{ old('locale', request('padanan')) }}"
+                           class="form-control @error('locale') is-invalid @enderror" autocomplete="off"
+                           @if(request('istilah')) autofocus @endif>
                     @error('locale')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

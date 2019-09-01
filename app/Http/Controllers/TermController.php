@@ -147,7 +147,7 @@ class TermController extends Controller
         }
 
         return redirect()->route('term.create')
-            ->with('success', true);
+            ->with('term', $term);
     }
 
     /**
