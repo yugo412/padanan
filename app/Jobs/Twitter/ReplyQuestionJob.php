@@ -68,7 +68,7 @@ class ReplyQuestionJob implements ShouldQueue
                     'line' => str_repeat(PHP_EOL, 2),
                 ];
 
-                if ($count >= 1) {
+                if ($count > 1) {
                     $text = __('@:username :origin = :locale:linePadanan lainnya: :link:line#padanan', $placeholders);
                 } else {
                     $text = __('@:username :origin = :locale #padanan', $placeholders);
