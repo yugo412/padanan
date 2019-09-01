@@ -45,7 +45,7 @@ class AskCommand extends Command
 
         $results = Twitter::search($hashtag, [
             'q' => $hashtag,
-            'result_type' => 'recent',
+            'result_type' => 'mixed',
             'count' => 100,
         ]);
 
