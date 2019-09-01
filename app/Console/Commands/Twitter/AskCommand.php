@@ -40,7 +40,7 @@ class AskCommand extends Command
      */
     public function handle()
     {
-        $hashtag = '#padanan';
+        $hashtag = '#tanyapadanan';
         $username = str_replace('@', null, config('twitter.username'));
 
         $results = Twitter::search($hashtag, [
@@ -53,16 +53,11 @@ class AskCommand extends Command
             if ($tweet->user->screen_name == $username) {
                 continue;
             }
-            $mentions = array_map(function ($user) {
-                return $user->screen_name;
-            }, $tweet->entities->user_mentions);
 
-            if (in_array($username, $mentions)) {
-                dispatch(new ReplyQuestionJob($tweet, [
-                    $hashtag,
-                    '@' . $username,
-                ]));
-            }
+            dispatch(new ReplyQuestionJob($tweet, [
+                $hashtag,
+                '@' . $username,
+            ]));
         }
     }
 }

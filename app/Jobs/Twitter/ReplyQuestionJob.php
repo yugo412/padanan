@@ -56,12 +56,23 @@ class ReplyQuestionJob implements ShouldQueue
 
             $term = Term::whereOrigin($origin)->first();
 
+            // get total term by keyword
+            $count = Term::whereOrigin($origin)->count();
+
             if (!empty($term)) {
-                $text = __('@:username :origin = :locale #padanan', [
+                $placeholders = [
                     'username' => $this->tweet->user->screen_name,
                     'origin' => $term->origin,
                     'locale' => $term->locale,
-                ]);
+                    'link' => route('term.search', ['keyword' => $origin]),
+                    'line' => str_repeat(PHP_EOL, 2),
+                ];
+
+                if ($count >= 1) {
+                    $text = __('@:username :origin = :locale:linePadanan lainnya: :link:line#padanan', $placeholders);
+                } else {
+                    $text = __('@:username :origin = :locale #padanan', $placeholders);
+                }
 
                 try {
                     $reply = Twitter::reply($text, ['tweet_id' => $this->tweet->id]);
