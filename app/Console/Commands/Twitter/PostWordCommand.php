@@ -5,7 +5,9 @@ namespace App\Console\Commands\Twitter;
 use App\Facades\Twitter;
 use App\Models\Term;
 use App\Models\Tweet;
+use DG\Twitter\Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class PostWordCommand extends Command
 {
@@ -72,11 +74,19 @@ class PostWordCommand extends Command
                 __('Kalau dalam bahasa asing disebut :origin, maka dalam bahasa Indonesia disebut :locale. Istilah ini umum ada pada bidang :category. #padanan #glosarium', $replaces),
             ];
 
-            $tweet = Twitter::send(collect($templates)->random());
+            try {
+                $tweet = Twitter::send('abc');
 
-            Tweet::firstOrNew(['word_id' => $term->id])
-                ->fill(['metadata' => $tweet])
-                ->save();
+                Tweet::firstOrNew(['word_id' => $term->id])
+                    ->fill(['metadata' => $tweet])
+                    ->save();
+            } catch (Exception $e) {
+                Log::warning($e->getMessage(), [
+                    'term_id' => $term->id,
+                    'origin' => $term->origin,
+                    'locale' => $term->locale,
+                ]);
+            }
         }
     }
 }
