@@ -60,15 +60,16 @@ class ReplyQuestionJob implements ShouldQueue
             ];
 
             // remove links from retweet
-            $origin = trim(preg_replace($patterns, '', $origin));
+            $origin = strtolower(trim(preg_replace($patterns, '', $origin)));
 
-            $term = Term::whereOrigin(trim($origin))->first();
+            $term = Term::whereOrigin($origin)->first();
 
             // get total term by keyword
-            $count = Term::whereOrigin(trim($origin))->count();
+            $count = Term::whereOrigin($origin)->count();
 
             if (!empty($term)) {
                 $placeholders = [
+                    'bot_emoji' => '🤖',
                     'username' => $this->tweet->user->screen_name,
                     'origin' => $term->origin,
                     'locale' => $term->locale,
@@ -77,9 +78,9 @@ class ReplyQuestionJob implements ShouldQueue
                 ];
 
                 if ($count > 1) {
-                    $text = __('@:username :origin = :locale:linePadanan lainnya: :link:line#padanan', $placeholders);
+                    $text = __('@:username :bot_emoji :origin = :locale:linePadanan lainnya: :link:line#padanan', $placeholders);
                 } else {
-                    $text = __('@:username :origin = :locale #padanan', $placeholders);
+                    $text = __('@:username :bot_emoji :origin = :locale #padanan', $placeholders);
                 }
 
                 try {
