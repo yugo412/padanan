@@ -5,6 +5,7 @@ namespace App\Console\Commands\Twitter;
 use App\Facades\Twitter;
 use App\Models\Term;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SummaryCommand extends Command
 {
@@ -39,6 +40,10 @@ class SummaryCommand extends Command
      */
     public function handle()
     {
+        Log::debug('Running padanan\'s bot informer.', [
+            'at' => now()->format('d-m-Y H:i:s'),
+        ]);
+
         $locale = 'id_ID';
 
         $termCount = Term::count();

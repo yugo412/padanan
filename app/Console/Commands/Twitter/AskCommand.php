@@ -6,6 +6,7 @@ use App\Facades\Twitter;
 use App\Jobs\Twitter\ReplyQuestionJob;
 use App\Models\TwitterAsk;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class AskCommand extends Command
 {
@@ -40,6 +41,10 @@ class AskCommand extends Command
      */
     public function handle()
     {
+        Log::debug('Running padanan\'s bot asker.', [
+            'at' => now()->format('d-m-Y H:i:s'),
+        ]);
+
         $hashtag = '#tanyapadanan';
         $username = str_replace('@', null, config('twitter.username'));
 

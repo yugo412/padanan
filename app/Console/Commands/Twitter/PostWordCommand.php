@@ -42,6 +42,10 @@ class PostWordCommand extends Command
      */
     public function handle()
     {
+        Log::debug('Running padanan\'s bot poster.', [
+            'at' => now()->format('d-m-Y H:i:s'),
+        ]);
+
         $term = Term::inRandomOrder()
             ->whereNotIn('id', function ($query) {
                 return $query->select('word_id')->from(with(new Tweet)->getTable());
