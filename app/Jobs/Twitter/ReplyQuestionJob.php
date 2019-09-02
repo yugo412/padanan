@@ -52,12 +52,15 @@ class ReplyQuestionJob implements ShouldQueue
         ]);
 
         if ($question->wasRecentlyCreated) {
-            $origin = trim(str_replace($this->replaces, null, $question->tweet));
+            $origin = str_replace($this->replaces, null, $question->tweet);
 
-            $term = Term::whereOrigin($origin)->first();
+            // remove links from retweet
+            $origin = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?).*$)@', '', $origin);
+
+            $term = Term::whereOrigin(trim($origin))->first();
 
             // get total term by keyword
-            $count = Term::whereOrigin($origin)->count();
+            $count = Term::whereOrigin(trim($origin))->count();
 
             if (!empty($term)) {
                 $placeholders = [
