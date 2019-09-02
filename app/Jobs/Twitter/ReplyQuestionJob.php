@@ -54,8 +54,13 @@ class ReplyQuestionJob implements ShouldQueue
         if ($question->wasRecentlyCreated) {
             $origin = str_replace($this->replaces, null, $question->tweet);
 
+            $patterns = [
+                '/@\w+/', // remove mentions
+                '@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?).*$)@', // remove urls
+            ];
+
             // remove links from retweet
-            $origin = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?).*$)@', '', $origin);
+            $origin = trim(preg_replace($patterns, '', $origin));
 
             $term = Term::whereOrigin(trim($origin))->first();
 
