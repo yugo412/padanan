@@ -4,7 +4,6 @@ namespace App\Console\Commands\Twitter;
 
 use App\Facades\Twitter;
 use App\Jobs\Twitter\ReplyQuestionJob;
-use App\Models\TwitterAsk;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
