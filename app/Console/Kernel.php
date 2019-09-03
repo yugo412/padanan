@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
             ->timezone($tz);
 
         $schedule->command('twitter:ask')
-            ->everyMinute()
+            ->everyTenMinutes()
             ->timezone($tz);
     }
 
