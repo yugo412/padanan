@@ -42,6 +42,7 @@ class AskCommand extends Command
     {
         Log::debug('Running padanan\'s bot asker.', [
             'at' => now()->format('d-m-Y H:i:s'),
+            'command' => get_class($this),
         ]);
 
         $hashtag = '#tanyapadanan';

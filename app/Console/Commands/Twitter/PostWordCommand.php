@@ -44,6 +44,7 @@ class PostWordCommand extends Command
     {
         Log::debug('Running padanan\'s bot poster.', [
             'at' => now()->format('d-m-Y H:i:s'),
+            'command' => get_class($this),
         ]);
 
         $term = Term::inRandomOrder()
@@ -79,7 +80,7 @@ class PostWordCommand extends Command
             ];
 
             try {
-                $tweet = Twitter::send('abc');
+                $tweet = Twitter::send(collect($templates)->random());
 
                 Tweet::firstOrNew(['word_id' => $term->id])
                     ->fill(['metadata' => $tweet])

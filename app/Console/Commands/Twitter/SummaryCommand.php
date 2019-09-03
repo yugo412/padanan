@@ -42,6 +42,7 @@ class SummaryCommand extends Command
     {
         Log::debug('Running padanan\'s bot informer.', [
             'at' => now()->format('d-m-Y H:i:s'),
+            'command' => get_class($this),
         ]);
 
         $locale = 'id_ID';
