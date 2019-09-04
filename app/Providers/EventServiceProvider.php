@@ -28,7 +28,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \App\Events\Term\TermViewed::class => [
-//            \App\Listeners\Term\TermDefinition::class,
+            \App\Listeners\Term\TermDefinition::class,
         ]
     ];
 
