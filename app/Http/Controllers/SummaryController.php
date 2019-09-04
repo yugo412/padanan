@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Report;
 use App\Models\Search;
 use App\Models\Term;
+use App\Models\TwitterAsk;
 use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -65,15 +65,12 @@ class SummaryController extends Controller
             return Search::count();
         });
 
-        $count['new_report'] = Cache::remember('report.count_new', $expires, function () use ($start, $end) {
-            return Report::whereDate('created_at', '>=', $start->format('Y-m-d'))
-                ->where('created_at', '<=', $end->format('Y-m-d'))
-                ->count();
-        });
-
-        $count['total_report'] = Cache::remember('report.count', $expires, function () use ($start, $end) {
-            return Report::count();
-        });
+        // search via twitter
+        $count['new_twitter_question'] = TwitterAsk::whereDate('created_at', '>=', $start->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $end->format('Y-m-d'))
+            ->whereIsReplied(true)
+            ->count();
+        $count['total_twitter_question'] = TwitterAsk::whereIsReplied(true)->count();
 
         $terms = Term::orderByDesc('created_at')
             ->where('created_at', '>=', $start->format('Y-m-d'))

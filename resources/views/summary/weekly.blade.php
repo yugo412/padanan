@@ -47,11 +47,11 @@
 
       <div class="col-md-6 col-sm-12">
         <div class="jumbotron text-right">
-          <h2>{{ $number->format($count['new_report']) }}</h2>
-          <p>@lang('Laporan kesalahan baru')</p>
+          <h2>{{ $number->format($count['new_twitter_question']) }}</h2>
+          <p>@lang('Pencarian baru di Twitter')</p>
           <hr>
-          <h4>{{ $number->format($count['total_report']) }}</h4>
-          <p>@lang('Total laporan')</p>
+          <h4>{{ $number->format($count['total_twitter_question']) }}</h4>
+          <p>@lang('Total <a href=":link" target="_blank">pencarian di Twitter</a>', ['link' => 'https://twitter.com/search?q=%23tanyapadanan&src=typed_query'])</p>
         </div>
       </div>
 
