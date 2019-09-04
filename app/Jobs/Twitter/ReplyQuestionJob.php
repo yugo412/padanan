@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ReplyQuestionJob implements ShouldQueue
 {
@@ -52,7 +53,7 @@ class ReplyQuestionJob implements ShouldQueue
         ]);
 
         if ($question->wasRecentlyCreated) {
-            $origin = str_replace($this->replaces, null, $question->tweet);
+            $keyword = str_replace($this->replaces, null, $question->tweet);
 
             $patterns = [
                 '/@\w+/', // remove mentions
@@ -60,25 +61,40 @@ class ReplyQuestionJob implements ShouldQueue
             ];
 
             // remove links from retweet
-            $origin = strtolower(trim(preg_replace($patterns, '', $origin)));
+            $keyword = strtolower(trim(preg_replace($patterns, '', $keyword)));
 
-            $term = Term::whereOrigin($origin)->first();
+            $terms = Term::where('origin', $keyword)
+//                ->orWhere('locale', $keyword)
+                ->orderByDesc('total_likes')
+                ->take(10)
+                ->get();
 
-            // get total term by keyword
-            $count = Term::whereOrigin($origin)->count();
-
-            if (!empty($term)) {
+            if (!empty($terms)) {
                 $placeholders = [
                     'bot_emoji' => '🤖',
                     'username' => $this->tweet->user->screen_name,
-                    'origin' => $term->origin,
-                    'locale' => $term->locale,
-                    'link' => route('term.search', ['katakunci' => $origin]),
-                    'line' => str_repeat(PHP_EOL, 2),
+                    'origin' => $terms->first()->origin,
+                    'locale' => $terms->first()->locale,
+                    'link' => $link = route('term.search', ['e' => $keyword]),
+                    'line' => PHP_EOL,
+                    'double_line' => str_repeat(PHP_EOL, 2),
                 ];
 
-                if ($count > 1) {
+                if ($terms->count() > 1) {
                     $text = __('@:username :bot_emoji :origin = :locale:linePadanan lainnya: :link:line#padanan', $placeholders);
+
+                    $locales = [];
+                    foreach ($terms as $term) {
+                        array_push($locales, $term->locale);
+                    }
+
+                    $placeholders['locales'] = implode(PHP_EOL, $locales);
+
+                    $text = __('@:username :bot_emoji :origin::double_line:locales:double_line#padanan', $placeholders);
+
+                    if (strlen($text) >= 280) {
+                        $text = Str::limit($text, 200, sprintf('%s%s', str_repeat(PHP_EOL, 2), $link));
+                    }
                 } else {
                     $text = __('@:username :bot_emoji :origin = :locale #padanan', $placeholders);
                 }
