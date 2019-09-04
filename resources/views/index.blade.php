@@ -50,8 +50,10 @@
             <div class="main-search-box pt-3 pb-4 d-inline-block">
               <form class="form-inline search-form justify-content-center" action="{{ route('term.search') }}"
                     method="get">
-                    <input type="text" placeholder="@lang('Istilah dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
-                    <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+                <input type="text" placeholder="@lang('Istilah dalam bahasa asing atau Indonesia...')" name="e"
+                       class="form-control search-input" autocomplete="off">
+                <button dusk="search-button" type="submit" class="btn search-btn" value="Search"><i
+                    class="fas fa-search"></i></button>
                 </form>
             </div>
         </div><!--//container-->

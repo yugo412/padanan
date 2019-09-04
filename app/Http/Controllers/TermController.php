@@ -29,11 +29,14 @@ class TermController extends Controller
     {
         $this->validate($request, [
             'katakunci' => ['nullable', 'string'],
+            'e' => ['nullable', 'string'], // now primary
         ]);
 
-        $terms = Term::selectRaw('*, MATCH(origin, locale) AGAINST (\'' . $request->katakunci . '\' IN BOOLEAN MODE) as score')
-            ->where(function ($query) use ($request){
-                return $query->search($request->katakunci ?? '');
+        $keyword = $request->e ?? $request->katakunci;
+
+        $terms = Term::selectRaw('*, MATCH(origin, locale) AGAINST (\'' . $keyword . '\' IN BOOLEAN MODE) as score')
+            ->where(function ($query) use ($keyword) {
+                return $query->search($keyword ?? '');
             })
             ->when($request->kategori, function ($query) use ($request){
                 return $query->whereHas('category', function ($category) use ($request){
@@ -51,10 +54,10 @@ class TermController extends Controller
             event(new SearchEvent($request->katakunci, $terms));
         }
 
-        return \view('term.search', compact('terms'))
-            ->with('title', $request->katakunci)
+        return \view('term.search', compact('terms', 'keyword'))
+            ->with('title', $keyword)
             ->with('description', __('Pencarian untuk padanan kata ":origin"', [
-                'origin' => $request->katakunci,
+                'origin' => $keyword,
             ]));
     }
 

@@ -8,9 +8,9 @@
 
 @section('content')
   <div class="container">
-    @if (request('katakunci'))
+    @if ($keyword)
     <div id="doc-header" class="doc-header text-center">
-      <h1 class="doc-title"><span aria-hidden="true" class="icon icon_search-2"></span> {{ request('katakunci') }}</h1>
+      <h1 class="doc-title"><span aria-hidden="true" class="icon icon_search-2"></span> {{ $keyword }}</h1>
       <div
         class="meta">@lang('ditemukan :count hasil pencarian untuk katakunci tersebut', ['count' => $terms->total()])</div>
       <hr>
@@ -22,7 +22,7 @@
 
         <div class="content-inner">
           @if ($terms->total() == 0)
-            <p>@lang('Penelusuran Anda - <strong>:keyword</strong> - tidak cocok dengan dokumen apa pun.', ['keyword' => request('katakunci')])</p>
+            <p>@lang('Penelusuran Anda - <strong>:keyword</strong> - tidak cocok dengan dokumen apa pun.', ['keyword' => $keyword])</p>
             <p>@lang('Saran:')</p>
             <ul>
               <li>@lang('Pastikan katakunci diisi.')</li>

@@ -98,12 +98,17 @@
 
                 @if (!empty($category) and request()->routeIs('term.category'))
                   <input type="hidden" name="kategori" value="{{ $category->slug }}">
-                  <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Cari istilah dalam bidang :category...', ['category' => strtolower($category->name)])" name="katakunci" class="form-control search-input" autocomplete="off">
+                  <input type="text" value="{{ request('e') }}"
+                         placeholder="@lang('Cari istilah dalam bidang :category...', ['category' => strtolower($category->name)])"
+                         name="e" class="form-control search-input" autocomplete="off">
                 @else
-                  <input type="text" value="{{ request('katakunci') }}" placeholder="@lang('Istilah dalam bahasa asing atau Indonesia...')" name="katakunci" class="form-control search-input" autocomplete="off">
+                  <input type="text" value="{{ request('e') }}"
+                         placeholder="@lang('Istilah dalam bahasa asing atau Indonesia...')" name="e"
+                         class="form-control search-input" autocomplete="off">
                 @endif
 
-                <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+                <button dusk="search-button" type="submit" class="btn search-btn" value="Search"><i
+                    class="fas fa-search"></i></button>
             </form>
           </div>
 
