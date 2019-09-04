@@ -88,7 +88,7 @@ class ReplyQuestionJob implements ShouldQueue
                         array_push($locales, $term->locale);
                     }
 
-                    $placeholders['locales'] = implode(PHP_EOL, $locales);
+                    $placeholders['locales'] = implode(PHP_EOL, array_unique($locales));
 
                     $text = __('@:username :bot_emoji :origin::double_line:locales:double_line#padanan', $placeholders);
 
