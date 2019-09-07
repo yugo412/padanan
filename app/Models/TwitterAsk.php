@@ -12,6 +12,7 @@ class TwitterAsk extends Model
     protected $fillable = [
         'tweet_id',
         'tweet',
+        'keyword',
         'user',
         'is_replied',
     ];

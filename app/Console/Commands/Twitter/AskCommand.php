@@ -55,10 +55,6 @@ class AskCommand extends Command
         ]);
 
         foreach ($results as $tweet) {
-            if ($tweet->user->screen_name == $username) {
-                continue;
-            }
-
             dispatch(new ReplyQuestionJob($tweet, [
                 $hashtag,
                 '@' . $username,

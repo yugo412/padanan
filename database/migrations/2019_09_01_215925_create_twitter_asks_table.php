@@ -17,6 +17,7 @@ class CreateTwitterAsksTable extends Migration
             $table->bigIncrements('id');
             $table->string('tweet_id', 20)->index();
             $table->string('tweet', 280);
+            $table->string('keyword', 280)->nullable();
             $table->string('user')->nullable();
             $table->boolean('is_replied')->default(false);
             $table->timestamps();
