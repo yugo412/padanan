@@ -158,6 +158,6 @@ class Term extends Model
      */
     public function scopeSearch(Builder $builder, string $keyword): Builder
     {
-        return $builder->whereRaw('MATCH (origin, locale) AGAINST (\'' . $keyword . '\' IN BOOLEAN MODE) > 0');
+        return $builder->whereRaw('MATCH (origin, locale) AGAINST (\'"' . $keyword . '"\' IN BOOLEAN MODE) > 0');
     }
 }

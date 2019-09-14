@@ -35,7 +35,7 @@ class TermController extends Controller
 
         $keyword = $request->e ?? $request->katakunci;
 
-        $terms = Term::selectRaw('*, MATCH(origin, locale) AGAINST (\'' . $keyword . '\' IN BOOLEAN MODE) as score')
+        $terms = Term::selectRaw('*, MATCH(origin, locale) AGAINST (\'"' . $keyword . '"\' IN BOOLEAN MODE) as score')
             ->where(function ($query) use ($keyword) {
                 return $query->search($keyword ?? '');
             })
@@ -45,6 +45,7 @@ class TermController extends Controller
                 });
             })
             ->orderByDesc('score')
+            ->orderByDesc('total_likes')
             ->orderByRaw('LENGTH(origin) ASC')
             ->withCount('reports')
             ->paginate(25);
