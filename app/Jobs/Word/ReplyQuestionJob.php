@@ -65,7 +65,7 @@ class ReplyQuestionJob implements ShouldQueue
 
             $text = __(':mentions :word:line:heading:line:descriptions', $placeholders);
 
-            if (strlen($text) <= 280) {
+            if (strlen($text) >= 280) {
                 $text = Str::limit($text, 200) . str_repeat(PHP_EOL, 2) . 'https://kbbi.kemdikbud.go.id/entri/' . $word['word'];
             }
 
