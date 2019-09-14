@@ -39,7 +39,12 @@ class ReplyQuestionJob implements ShouldQueue
     {
         $keyword = str_replace('#tanyakata', null, $this->tweet->text);
 
-        $word = Dictionary::explain(trim($keyword));
+        $patterns = [
+            '/@\w+/', // remove mentions
+            '@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?).*$)@', // remove urls
+        ];
+
+        $word = Dictionary::explain(trim(preg_replace($patterns, null, $keyword)));
 
         if (!empty($word['descriptions'])) {
             $formattedDescription = array_map(function ($description) {
