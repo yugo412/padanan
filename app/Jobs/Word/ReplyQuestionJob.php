@@ -79,7 +79,7 @@ class ReplyQuestionJob implements ShouldQueue
                     'tweet_id' => $this->tweet->id,
                 ]);
             } catch (Exception $e) {
-                Log::error($e->getMessage());
+                Log::warning($e->getMessage());
             }
         }
     }
