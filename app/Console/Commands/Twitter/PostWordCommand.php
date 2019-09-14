@@ -3,8 +3,8 @@
 namespace App\Console\Commands\Twitter;
 
 use App\Facades\Twitter;
+use App\Models\Post;
 use App\Models\Term;
-use App\Models\Tweet;
 use DG\Twitter\Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -48,9 +48,7 @@ class PostWordCommand extends Command
         ]);
 
         $term = Term::inRandomOrder()
-            ->whereNotIn('id', function ($query) {
-                return $query->select('word_id')->from(with(new Tweet)->getTable());
-            })
+            ->doesntHave('post')
             ->whereRaw('origin != locale')
             ->take(1)
             ->first();
@@ -82,9 +80,10 @@ class PostWordCommand extends Command
             try {
                 $tweet = Twitter::send(collect($templates)->random());
 
-                Tweet::firstOrNew(['word_id' => $term->id])
-                    ->fill(['metadata' => $tweet])
-                    ->save();
+                $term->post()->save(new Post([
+                    'channel' => 'twitter',
+                    'metadata' => $tweet,
+                ]));
             } catch (Exception $e) {
                 Log::warning($e->getMessage(), [
                     'term_id' => $term->id,

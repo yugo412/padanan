@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Term extends Model
@@ -130,6 +131,14 @@ class Term extends Model
     public function tweet(): HasOne
     {
         return $this->hasOne(Tweet::class);
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function post(): MorphOne
+    {
+        return $this->morphOne(Post::class, 'postable');
     }
 
     /**
