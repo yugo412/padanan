@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Events\Word\SearchEvent;
 use App\Models\Category;
 use App\Models\Term;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TermTest extends TestCase
 {
@@ -22,9 +22,27 @@ class TermTest extends TestCase
      *
      * @return void
      */
-    public function testSearch()
+    public function testSearch(): void
     {
-        $response = $this->get('/cari?katakunci=x');
+        Event::fake();
+
+        $response = $this->get('/cari?e=abc');
+
+        Event::assertDispatched(SearchEvent::class);
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Test term not found when keyword is empty.
+     */
+    public function testSearchNotFound(): void
+    {
+        Event::fake();
+
+        $response = $this->get('/cari?e=');
+
+        Event::assertNotDispatched(SearchEvent::class);
 
         $response->assertStatus(200);
     }
@@ -32,7 +50,7 @@ class TermTest extends TestCase
     /**
      * Test term detail.
      */
-    public function testShow()
+    public function testShow(): void
     {
         $term = Term::first();
 
@@ -48,7 +66,7 @@ class TermTest extends TestCase
     /**
      * Test show terms by category.
      */
-    public function testCategory()
+    public function testCategory(): void
     {
         $category = Category::first();
         $response = $this->get('/bidang/' . $category->slug);
