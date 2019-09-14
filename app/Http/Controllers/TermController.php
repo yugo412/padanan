@@ -50,8 +50,8 @@ class TermController extends Controller
         $terms->appends($request->all());
 
         // fire term search event
-        if (!empty($request->katakunci)) {
-            event(new SearchEvent($request->katakunci, $terms));
+        if (!empty($keyword)) {
+            event(new SearchEvent($keyword, $terms));
         }
 
         return \view('term.search', compact('terms', 'keyword'))
