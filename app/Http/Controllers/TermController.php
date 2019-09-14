@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class TermController extends Controller
@@ -143,11 +144,16 @@ class TermController extends Controller
             'category_id' => $category->id,
         ]);
 
-        $term = Term::create($request->all());
+        DB::transaction(function () use (&$term, $request, $category) {
+            $term = Term::create($request->all());
 
-        if (Auth::check() and $request->has('tweet')) {
-            event(new StoredEvent($term));
-        }
+            // assign to category
+            $term->categories()->attach($category);
+
+            if (Auth::check() and $request->has('tweet')) {
+                event(new StoredEvent($term));
+            }
+        });
 
         return redirect()->route('term.create')
             ->with('term', $term);

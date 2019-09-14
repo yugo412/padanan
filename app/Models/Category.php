@@ -57,6 +57,7 @@ class Category extends Model implements HasMedia
 
     /**
      * @return HasMany
+     *@deprecated
      */
     public function terms(): HasMany
     {

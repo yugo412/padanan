@@ -3,13 +3,18 @@
 namespace Tests\Feature;
 
 use App\Events\Word\SearchEvent;
+use App\Events\Word\StoredEvent;
 use App\Models\Category;
 use App\Models\Term;
+use App\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class TermTest extends TestCase
 {
+    use WithFaker;
+
     public function testIndex(): void
     {
         $response = $this->get('/istilah');
@@ -76,5 +81,30 @@ class TermTest extends TestCase
         } else {
             $response->assertStatus(200);
         }
+    }
+
+    public function testStore(): void
+    {
+        $term = factory(Term::class)->make([
+            'category_id' => Category::inRandomOrder()->first()->id,
+        ]);
+
+        $response = $this->post('/tambah', $term->toArray());
+
+        $response->assertStatus(302);
+    }
+
+    public function testStoreFromUser(): void
+    {
+        $this->actingAs($user = factory(User::class)->create());
+
+        $response = $this->post('/tambah', $params = [
+            'category_id' => Category::first()->id,
+            'origin' => $this->faker->word,
+            'locale' => $this->faker->word,
+            'source' => $this->faker->url,
+        ]);
+
+        $response->assertRedirect('/tambah');
     }
 }
