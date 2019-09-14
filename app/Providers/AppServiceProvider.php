@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
         App::bind('sastrawi', function () {
             return new \App\Services\Sastrawi;
         });
+
+        App::bind('dictionary', function () {
+            return new \App\Services\Dictionary;
+        });
     }
 
     /**
