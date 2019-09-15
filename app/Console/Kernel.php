@@ -42,9 +42,9 @@ class Kernel extends ConsoleKernel
             ->everyTenMinutes()
             ->timezone($tz);
 
-        $schedule->command('twitter:word:ask')
-            ->everyTenMinutes()
-            ->timezone($tz);
+//        $schedule->command('twitter:word:ask')
+//            ->everyTenMinutes()
+//            ->timezone($tz);
     }
 
     /**
