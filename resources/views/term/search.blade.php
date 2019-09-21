@@ -30,6 +30,9 @@
               <li>@lang('Coba kata kunci yang lain.')</li>
               <li>@lang('Coba kata kunci yang lebih umum.')</li>
             </ul>
+
+            <p>Klik <a href="{{ route('term.create', ['istilah' => $keyword]) }}">di sini untuk menambahkan</a>
+              <strong>{{ $keyword }}</strong> sebagai istilah baru di Padanan.</p>
           @endif
 
           @foreach ($terms as $index => $term)
