@@ -11,15 +11,19 @@ class AppDownMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $url;
+
     private $message;
 
     /**
      * Create a new message instance.
      *
+     * @param string $url
      * @param string $message
      */
-    public function __construct(string $message)
+    public function __construct(string $url, string $message)
     {
+        $this->url = $url;
         $this->message = $message;
     }
 
@@ -30,8 +34,9 @@ class AppDownMail extends Mailable
      */
     public function build()
     {
-        return $this->subject(__('Status Website :url', ['url' => config('app.url')]))
+        return $this->subject(__('Status Website :url', ['url' => $this->url]))
             ->markdown('app.down', [
+                'url' => $this->url,
                 'message' => $this->message,
             ]);
     }

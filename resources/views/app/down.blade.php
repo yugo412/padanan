@@ -1,7 +1,7 @@
 @component('mail::message')
-  # Halo, pemilik Padanan.id
+  # Halo,
 
-  Nampaknya website {{ config('app.name') }} dengan URL {{ config('app.url') }} sedang tidak dalam kondisi aktif. Mohon segera diperiksa!
+  Nampaknya URL {{ $url }} sedang tidak dalam kondisi aktif. Jika kamu merupakan pemiliknya, mohon segera periksa!
 
   @component('mail::panel')
     {{ $message }}
