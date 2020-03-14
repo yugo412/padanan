@@ -12,9 +12,9 @@ return [
     |
     */
 
-    'reset' => 'Sandilewat Anda sudah direset!',
-    'sent' => 'Kami sudah mengirim surel yang berisi tautan untuk menyetel ulang sandilewat Anda!',
-    'throttled' => 'Mohon menunggu sebelum mencoba kembali.',
-    'token' => 'Token pengaturan ulang sandilewat tidak sah.',
-    'user' => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
+    'password' => 'Sandilewat minimal harus memiliki enam karakter dan cocok dengan konfirmasi.',
+    'reset'    => 'Sandilewat Anda sudah direset!',
+    'sent'     => 'Kami sudah mengirim surel yang berisi tautan untuk menyetel ulang sandilewat Anda!',
+    'token'    => 'Token pengaturan ulang sandilewat tidak sah.',
+    'user'     => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
 ];

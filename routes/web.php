@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +12,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('/', 'IndexController')->name('index');
-
-// TODO: use compatible library with PHP 7.x
-//Route::get('sitemap.xml', 'SitemapController@index')->name('sitemap');
-//Route::get('sitemap-{category}.xml', 'SitemapController@term')->name('sitemap.term');
+Route::get('sitemap.xml', 'SitemapController@index')->name('sitemap');
+Route::get('sitemap-{category}.xml', 'SitemapController@term')->name('sitemap.term');
 
 Route::get('kontak', 'ContactController@form')->name('contact');
 Route::post('kontak', 'ContactController@store');
